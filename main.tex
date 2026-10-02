@@ -1,0 +1,1070 @@
+\documentclass[journal ]{new-aiaa}
+%\documentclass[conf]{new-aiaa} for conference papers
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[version=4]{mhchem}
+\usepackage{siunitx}
+\usepackage{longtable,tabularx}
+\setlength\LTleft{0pt} 
+
+\usepackage{tikz} 
+\usepackage{tikz-qtree}
+\usetikzlibrary{trees}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta, calc, quotes}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage{makecell}
+
+\usepackage[export]{adjustbox}
+
+\usepackage{multirow}
+
+\usetikzlibrary{calc}
+
+\DeclareRobustCommand{\AlphaCaption}[1]{%
+  \ensuremath{\boldsymbol{\alpha}\mathbf{=#1}^{\boldsymbol{\circ}}}%
+}
+\DeclareRobustCommand{\DeltaCaption}[1]{%
+  \ensuremath{\boldsymbol{\delta}\mathbf{=#1}^{\boldsymbol{\circ}}}%
+}
+\DeclareRobustCommand{\GammaCaption}[1]{%
+  \ensuremath{\boldsymbol{\Gamma}\mathbf{=#1}^{\boldsymbol{\circ}}}%
+}
+
+\DeclareRobustCommand{\AlphaSimple}[1]{%
+  \ensuremath{\alpha=#1^\circ}%
+}
+\DeclareRobustCommand{\DeltaSimple}[1]{%
+  \ensuremath{\delta=#1^\circ}%
+}
+\DeclareRobustCommand{\GammaSimple}[1]{%
+  \ensuremath{\Gamma=#1^\circ}%
+}
+
+% Include an image and draw masking rectangles over it.
+% Coordinates are normalized:
+% x = 0 left, x = 1 right
+% y = 0 bottom, y = 1 top
+\newcommand{\MaskedImage}[3][]{%
+\begin{tikzpicture}
+    \node[anchor=south west, inner sep=0] (img) at (0,0)
+        {\includegraphics[#1]{#2}};
+    \begin{scope}[x={(img.south east)}, y={(img.north west)}]
+        #3
+    \end{scope}
+\end{tikzpicture}%
+}
+
+% Rectangle from lower-left corner (x1,y1) to upper-right corner (x2,y2)
+\newcommand{\maskrect}[5][white]{%
+    \fill[#1] (#2,#3) rectangle (#4,#5);
+}
+
+% Rectangle using lower-left corner plus width and height
+\newcommand{\maskrectwh}[5][white]{%
+    \pgfmathsetmacro{\xr}{#2 + #4}
+    \pgfmathsetmacro{\yt}{#3 + #5}
+    \fill[#1] (#2,#3) rectangle (\xr,\yt);
+}
+
+% Rectangle using top-left corner plus width and height
+% Useful if you think in image-editor coordinates.
+\newcommand{\maskrecttl}[5][white]{%
+    \pgfmathsetmacro{\xr}{#2 + #4}
+    \pgfmathsetmacro{\yb}{1 - (#3 + #5)}
+    \pgfmathsetmacro{\yt}{1 - #3}
+    \fill[#1] (#2,\yb) rectangle (\xr,\yt);
+}
+
+\title{Pre-Stall Aerodynamic Nonlinearities of Swept Tail Planes with Full-Span Control Surface}
+
+\author{Andrea Rausa\footnote{PhD, Department of Aerospace Science and Technology, Corresponding Author, andrea.rausa@polimi.it}, 
+Alex Zanotti \footnote{Associate Professor, Department of Aerospace Science and Technology}, Giuseppe Gibertini \footnote{Associate Professor, Department of Aerospace Science and Technology}, Alberto Guardone \footnote{Full Professor, Department of Aerospace Science and Technology}, and Franco Auteri \footnote{Full Professor, Department of Aerospace Science and Technology}}
+\affil{Politecnico di Milano, Department of Aerospace Science and Technology, Milano, Italy, 20154}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper presents an experimental--numerical investigation of pre-stall nonlinearities in swept tail planes equipped with full-span trailing-edge control surfaces.
+Wind-tunnel force and moment measurements from the MONNALISA project show that, for sufficiently large control-surface deflections, abrupt variations can appear in both the lift coefficient $C_L$ and the pitching-moment coefficient $C_{M,y}$ before global stall.
+The sensitivity of these nonlinearities to tail-plane geometry is assessed by comparing a reference positive-sweep configuration, the same planform with dihedral, and a negative-sweep geometry.
+Reynolds-averaged Navier--Stokes simulations with the Spalart--Allmaras turbulence model and Bas--Cakmakcioglu transition model are compared with the measured loads and then used to interpret the associated flow mechanisms.
+The numerical analysis combines load decomposition and surface-flow visualizations to relate the measured coefficient variations to localized separation and geometry-dependent load redistribution.
+The results show that large control-surface deflections trigger pre-stall nonlinearities, while their signature in the integrated aerodynamic coefficients is modulated by the three-dimensional load redistribution imposed by dihedral, sweep direction, and planform geometry.
+\end{abstract}
+
+\section*{Nomenclature}
+
+{\renewcommand\arraystretch{1.0}
+\noindent\begin{longtable*}{@{}l @{\quad=\quad} l@{}}
+AC & aerodynamic centre \\
+$b$ & model semi-span [m] \\
+BCM & Bas--Cakmakcioglu transition model \\
+$c$ & local chord [m] \\
+$C_D$ & drag coefficient \\
+CFD & computational fluid dynamics \\
+$C_L$ & lift coefficient \\
+$C_{L,\max}$ & maximum lift coefficient \\
+$C_{M,y,AC}$, $C_{M,y}$ & pitching-moment coefficient about the aerodynamic-centre axis \\
+$C_p$ & pressure coefficient \\
+GVPM & Galleria del Vento Politecnico di Milano \\
+$L$ & lift force [N] \\
+MAC & mean aerodynamic chord [m] \\
+$M_\infty$ & freestream Mach number \\
+$M_{y,AC}$ & pitching-moment about the aerodynamic-centre axis [Nm]\\
+MONNALISA & Modelling Nonlinear Aerodynamics of Lifting Surfaces \\
+$q_\infty$ & freestream dynamic pressure [Pa] \\
+RANS & Reynolds-averaged Navier--Stokes \\
+$Re_b$ & Reynolds number based on model semi-span \\
+SA & Spalart--Allmaras turbulence model \\
+$S_{\mathrm{ref}}$ & reference surface area [m$^2$] \\
+$T_\infty$ & freestream temperature [K] \\
+$t/c$ & airfoil thickness-to-chord ratio \\
+WT & wind tunnel \\
+
+$\alpha$ & angle of attack [$^\circ$]\\
+$\alpha_{C_{L,\max}}$ & angle of attack corresponding to $C_{L,\max}$ [$^\circ$] \\
+$\alpha_{\mathrm{NL}}$ & angle of attack at which the pre-stall nonlinearity first appears [$^\circ$] \\
+$\alpha_{\mathrm{NL}}^{C_L}$ & angle of attack at which the nonlinear feature first appears in $C_L$ [$^\circ$] \\
+$\alpha_{\mathrm{NL}}^{C_{M,y}}$ & angle of attack at which the nonlinear feature first appears in $C_{M,y}$ [$^\circ$] \\
+$\delta$ & control-surface deflection angle [$^\circ$] \\
+$\Gamma$ & dihedral angle [$^\circ$] \\
+$\lambda$ & quarter-chord sweep angle [$^\circ$] \\
+$\Lambda$ & aspect ratio \\
+$\tau$ & taper ratio \\
+\end{longtable*}}
+
+
+
+
+\section{Introduction}
+
+\lettrine{S}{wept} tail planes, equipped with trailing-edge control surfaces, are an aerodynamic configuration ubiquitous in commercial aircraft. Fo these lifting surfaces, the pre-stall response may depart significantly from the smooth behaviour commonly assumed in preliminary design models.
+This departure is particularly relevant when the control surface extends over the full span, because changes in the flow state over the deflected portion of the surface can influence the aerodynamic loads.
+At finite incidence and finite control-surface deflection, the aft part of the section may approach separation before the complete lifting surface reaches its global stall condition.
+In such conditions, abrupt variations of the lift and pitching-moment coefficients may arise in the pre-stall regime and require an interpretation that goes beyond a conventional maximum-lift or global-stall analysis.
+The appearance of these nonlinearities may also depend on the geometry of the tail plane, including the presence of a dihedral angle and the sweep angle.
+The present work investigates this problem through a combined experimental--numerical investigation, using wind-tunnel force and moment data to characterize the nonlinear aerodynamic response and Reynolds-averaged Navier--Stokes simulations to analyze the associated flow field.
+
+The aerodynamic behaviour of swept lifting surfaces near stall has long been recognized as difficult to predict.
+Classical investigations of swept wings showed that stall onset and progression are affected by sweep and the consequent spanwise flow, planform geometry, and three-dimensional separation effects \cite{harper1964sweptstall}.
+Although these mechanisms have most often been studied in the context of wing stall, they are also relevant to isolated swept tail planes operated at finite incidence.
+For the configurations considered in this work, the presence of a full-span trailing-edge control surface introduces an additional source of nonlinearity by modifying the loading and pressure recovery over the aft portion of the lifting surface.
+
+For attached flow and moderate deflections, a trailing-edge control surface changes the effective camber of the section and produces the expected variation of lift and pitching moment \cite{abbott1959theory}.
+This behaviour is usually represented, at least locally, through control derivatives or equivalent linearized control-effectiveness parameters.
+However, as the control-surface deflection is increased, the pressure recovery over the deflected surface becomes more severe, and the local boundary layer may separate.
+Classical wind-tunnel investigations of control-surface characteristics already showed that separation effects can reduce flap effectiveness at large deflections \cite{gillis1942controls}.
+For a full-span control surface, such local changes in the flow state can produce measurable variations in the integrated aerodynamic coefficients, even when the complete lifting surface has not yet reached global stall.
+
+The prediction of this type of behaviour is challenging because the flow is neither fully attached nor globally stalled.
+Reduced-order aerodynamic methods, including nonlinear lifting-line and vortex-lattice formulations, often rely on sectional viscous data, empirical corrections, or local stall models to introduce nonlinear effects into otherwise inviscid lifting-surface descriptions \cite{sivells1947liftingline,gabor2016vlm,gallay2014llt,goitia2019vlm}.
+These approaches are attractive for preliminary design because of their low computational cost, but their accuracy depends on the ability to represent the relevant separation mechanisms and their three-dimensional coupling.
+For swept tail planes with full-span control surfaces, the difficulty is amplified by the simultaneous presence of sweep, finite-span effects, control-surface deflection, transition, and local separation.
+Consequently, experimental and high-fidelity numerical data are required to both identify the relevant flow mechanisms and to support the development of reliable lower-order models.
+
+This work is conducted within the MONNALISA project, which provides the experimental and numerical database used to support the development of nonlinear aerodynamic models for lifting surfaces with controls \cite{auteri2022monnalisa,rausa2026monnalisa}.
+Within this framework, the present paper investigates abrupt pre-stall nonlinearities observed in the aerodynamic coefficients of swept tail planes equipped with full-span control surfaces.
+Wind-tunnel force and moment measurements are used to characterize the nonlinear event and to assess its sensitivity to control-surface deflection, dihedral angle, and sweep direction.
+Since experimental surface-flow visualization is not available at the pre-stall incidences where the nonlinearities occur, selected Reynolds-averaged Navier--Stokes simulations are first compared with the measured loads and then used to interpret the associated flow mechanisms.
+
+The paper has three main contributions.
+First, it documents the occurrence of abrupt pre-stall nonlinearities in both $C_L$ and $C_{M,y}$ for swept tail planes with full-span controls.
+Second, it shows how the nonlinear signature is modified by dihedral and negative sweep.
+Third, it uses load decomposition and surface-flow topology from RANS to distinguish between nonlinearities associated with control-surface separation and those governed by geometry-dependent load redistribution.
+
+\section{Experimental and Numerical Methodology}
+\label{sec:methodology}
+
+The experimental and numerical data analysed in this work are extracted from the MONNALISA database, whose complete setup and structure are documented in Ref.~\cite{rausa2026monnalisa}.
+Only the elements required for the present investigation are summarized here.
+
+\subsection{Geometrical configurations}
+\label{subsec:geometries}
+
+The geometrical parametrization follows the MONNALISA convention described in Ref.~\cite{rausa2026monnalisa}.
+The planform is defined by the quarter-chord sweep angle $\lambda$, aspect ratio $\Lambda$, taper ratio $\tau$, dihedral angle $\Gamma$, and model semi-span $b$.
+The control surface extends over the full span and rotates about the $70\%$ chord line.
+The geometrical parameters and the sign conventions are illustrated in Fig.~\ref{figure:PlanformDefinition}.
+
+\input{LongFigure_1}
+
+The model semi-span is fixed to $b=1.6~\mathrm{m}$ for all configurations.
+A positive sweep angle indicates that the tip is located downstream of the root, while a positive dihedral angle indicates upward inclination of the lifting surface.
+The control-surface deflection is denoted by $\delta$.
+
+The present work considers two in-plane planforms, shown in Fig.~\ref{fig:AllGeometries}.
+The first one is the reference positive-sweep planform, denoted as Geom.~I, with $\lambda=30^\circ$.
+The second one is the negative-sweep planform, denoted as Geom.~II, with $\lambda=-15^\circ$.
+The effect of dihedral is investigated only on the reference planform by comparing the cases $\Gamma=0^\circ$ and $\Gamma=45^\circ$.
+The dihedral case is obtained by rotating the reference planform about the rolling axis, without modifying the in-plane planform or the model semi-span.
+Consequently, the same reference quantities are used for non-dimensionalization in the zero-dihedral and dihedral cases, including $S_{\mathrm{ref}}$ and MAC.
+The comparison between Geom.~I and Geom.~II is used to assess the influence of the sweep direction on the appearance of the pre-stall nonlinearities.
+
+\input{LongFigure_2}
+
+\begin{table}[h!]
+\centering
+\caption{Geometrical configurations considered in the present work.}
+\label{tab:geometries}
+\begin{tabular}{lccc}
+\hline
+\hline
+Property & Reference & Reference with dihedral & Negative sweep \\
+\hline
+MONNALISA planform & Geom.~I & Geom.~I & Geom.~II \\
+Sweep angle $\lambda$ [deg] & $30.0$ & $30.0$ & $-15.0$ \\
+Dihedral angle $\Gamma$ [deg] & $0$ & $45$ & $0$ \\
+Aspect ratio $\Lambda$ [-] & $5.0$ & $5.0$ & $5.2$ \\
+Taper ratio $\tau$ [-] & $0.4$ & $0.4$ & $0.6$ \\
+Reference surface $S_{\mathrm{ref}}$ [$\mathrm{m}^2$] & $1.024$ & $1.024$ & $0.9846$ \\
+Mean aerodynamic chord $\mathrm{MAC}$ [m] & $0.679184$ & $0.679184$ & $0.6282$ \\
+Airfoil thickness $t/c$ [\%] & $9$ & $9$ & $9$ \\
+Model semi-span $b$ [m] & $1.6$ & $1.6$ & $1.6$ \\
+\hline
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Experimental force and moment data}
+\label{subsec:experimental_data}
+
+The experimental measurements were performed in the low-turbulence test section of the GVPM wind tunnel at Politecnico di Milano.
+The model was tested in a semi-span arrangement, with the root located at the wind-tunnel floor.
+The aerodynamic loads were acquired by means of a RUAG 767 strain-gauge balance installed below the test section and connected to the model support system.
+The balance provides the global forces and moments acting on the model in the balance reference frame.
+These quantities were corrected and transformed to the wind reference frame following the procedure described in Ref.~\cite{rausa2026monnalisa}, where the complete experimental setup, balance calibration, and data-processing procedure are reported.
+
+The Mach number is $M_\infty=0.147$, and the Reynolds number based on the model semi-span is $Re_b=5.5\times10^6$.
+The freestream temperature is $T_\infty=300~\mathrm{K}$, and the freestream turbulence intensity is lower than $0.1\%$.
+The aerodynamic coefficients are available over the angle-of-attack range $\alpha\in[-26^\circ,26^\circ]$, with an increment of $2^\circ$.
+The full-span control-surface deflection takes the discrete values $\delta=\pm\{0^\circ,10^\circ,20^\circ,30^\circ,34^\circ\}$.
+The present analysis focuses on the configurations and deflections for which abrupt pre-stall variations are observed in the aerodynamic loads.
+
+The present paper considers the lift coefficient $C_L$ and the pitching-moment coefficient $C_{M,y,AC}$.
+They are defined as
+\begin{equation}
+C_L = \frac{L}{q_\infty S_{\mathrm{ref}}},
+\label{eq:CL_definition}
+\end{equation}
+and
+\begin{equation}
+C_{M,y,AC} = \frac{M_{y,AC}}{q_\infty S_{\mathrm{ref}}\mathrm{MAC}},
+\label{eq:Cm_definition}
+\end{equation}
+where $q_\infty$ is the freestream dynamic pressure, $S_{\mathrm{ref}}$ is the reference surface, and $\mathrm{MAC}$ is the mean aerodynamic chord.
+The pitching moment is evaluated about the aerodynamic centre of the mean aerodynamic chord, consistent with the database definition.
+For ease of notation, the aerodynamic-centre subscript is omitted in the following, since all pitching-moment coefficients reported in this work are evaluated about this reference point.
+
+The experimental data are used to identify abrupt variations in the pre-stall aerodynamic response.
+In this work, these variations are referred to as pre-stall nonlinearities when they appear in the increasing branch of the aerodynamic-load curves while the complete tail plane remains below its global stall condition.
+The simultaneous occurrence of these features in $C_L$ and $C_{M,y}$ is used as an indication that the nonlinear effect involves a redistribution of aerodynamic loading over the tail plane, rather than a lift-specific effect.
+
+Surface-flow visualization from the experimental campaign is available only at global stall and is therefore not sufficient to resolve the flow state at each pre-stall incidence where the load nonlinearities occur.
+For this reason, the interpretation of the corresponding flow topology is based on the RANS solution, after comparison with the measured aerodynamic coefficients.
+
+\subsection{RANS simulations}
+\label{subsec:rans_setup}
+
+The numerical simulations considered in this work are steady Reynolds-averaged Navier--Stokes computations performed with SU2~\cite{palacios2013stanford}.
+The numerical setup follows the high-fidelity CFD model documented in Ref.~\cite{rausa2026monnalisa}.
+The governing equations are discretized using a finite-volume formulation on unstructured grids.
+The convective fluxes are computed with the Roe scheme and MUSCL~\cite{van1979towards} reconstruction, and the Venkatakrishnan~\cite{venkatakrishnan1993accuracy} limiter is used to reduce spurious oscillations.
+An implicit Euler scheme is employed for pseudo-time advancement toward a steady solution.
+
+The turbulence closure is the Spalart--Allmaras model~\cite{spalart1992sa}.
+Laminar-to-turbulent transition is included through the algebraic Bas--Cakmakcioglu transition model~\cite{cakmakcioglu2020bcm}.
+The model surface is treated as a no-slip wall with zero heat flux.
+Freestream conditions are imposed at the far-field boundaries.
+The root plane is treated as a symmetry boundary.
+
+The computational grids are generated with the automated MONNALISA meshing procedure described in Ref.~\cite{rausa2026monnalisa}.
+The surface mesh is refined in high-curvature regions, such as the leading edge and the control-surface junction.
+The volume grid is refined in regions where vortical structures, separated flow, or wake development are expected.
+The nominal grid level is used in the present simulations, following the mesh-convergence assessment reported in Ref.~\cite{rausa2026monnalisa}.
+
+% The RANS simulations are not used as a replacement for the experimental measurements.
+% They are first assessed against the experimental aerodynamic coefficients.
+% Only after this comparison are the computed flow fields used to interpret the flow mechanisms associated with the measured pre-stall load variations.
+
+\subsection{Post-processing strategy}
+
+The analysis is organized in two steps.
+First, the experimental and numerical aerodynamic coefficients are compared to assess whether the RANS simulations reproduce the relevant trends in $C_L$ and $C_{M,y}$, including the onset of the pre-stall nonlinearities and their dependence on control-surface deflection and geometry.
+
+Second, representative RANS solutions are used for flow-field interpretation.
+The integrated aerodynamic loads are decomposed into contributions from the fixed portion of the tail plane and from the deflected control surface.
+This decomposition is combined with surface maps of lift and pitching-moment contributions per unit surface area and with skin-friction lines.
+The procedure is used to relate the measured load variations to localized separation, load redistribution between the fixed and deflected surfaces, and geometry-dependent changes in the surface-flow topology.
+
+\section{Experimental Characterization of Pre-Stall Nonlinearities}
+\label{sec:experimental_characterization}
+
+The aerodynamic force and moment measurements are first analysed independently of the numerical simulations.
+The reference swept configuration is used to identify the characteristic features of the pre-stall nonlinearities.
+The effects of dihedral and negative sweep are then examined to assess how the nonlinear signature changes with tail-plane geometry.
+This experimental characterization provides the basis for the targeted RANS assessment and flow-field interpretation presented in the following sections.
+
+\subsection{Reference swept configuration}
+\label{subsec:reference_swept_configuration}
+
+Starting from the reference planform, Fig.~\ref{fig:Coefficients:OnlyExp} reports the dependence of the main aerodynamic coefficients on the angle of attack and on the control-surface deflection.
+The lift coefficient shows clear evidence of pre-stall nonlinearities for $\delta>10^\circ$.
+The effect appears as a local change in slope of the $C_L$--$\alpha$ curve, which produces an apparent shift of the lift curve towards higher incidences.
+After this local variation, however, the curve approximately recovers its previous slope.
+As a result, the nonlinear event produces a loss of lift with respect to the hypothetical smooth continuation of the same curve in the absence of the nonlinearity.
+
+The first occurrence is observed for $\delta=20^\circ$ around $\alpha \approx 0^\circ$.
+As the control-surface deflection is increased to $\delta=30^\circ$, the onset of the nonlinear behaviour shifts towards lower incidences.
+Further increases in control-surface deflection do not appear to produce a significant additional shift in the onset angle.
+Among the tested cases, the most abrupt change in lift-curve slope is observed for $\delta=20^\circ$.
+At larger deflections, the nonlinearity is still present, but its signature in the lift coefficient becomes less pronounced.
+This suggests the existence of a threshold of the control-surface deflection above which the nonlinear response appears, with the strongest manifestation occurring close to the threshold itself.
+
+At larger incidences, the lift curve exhibits the typical behaviour of a positively swept lifting surface near stall.
+Instead of the abrupt lift loss commonly associated with unswept wings, the stall is characterized by a plateau of the lift coefficient.
+This behaviour is usually associated with the persistence of a separated vortical structure over the suction side, which maintains a low-pressure region over the surface and therefore preserves a significant fraction of the lift even after large-scale separation~\cite{harper1964sweptstall}.
+Increasing the control-surface deflection, the maximum lift coefficient $C_{L,\max}$ also increases, while the corresponding angle of attack $\alpha_{C_{L,\max}}$ shifts towards lower values.
+This trend is consistent with the increase in effective camber produced by a downward deflection of the trailing-edge control surface~\cite{abbott1959theory}.
+
+The pre-stall nonlinearities are also detectable in the drag coefficient, where the event appears as a local increase in $C_D$.
+However, the signature is less clear than in $C_L$ and $C_{M,y}$, and the drag response may also be affected by transition effects because of the low freestream turbulence intensity.
+For this reason, the following analysis focuses on the lift and pitching-moment coefficients, which provide a clearer characterization of the nonlinear load response.
+
+The pitching-moment coefficient shows the strongest and most evident signature of the nonlinear effect.
+At the same incidences and control-surface deflections for which the nonlinearities are visible in the lift curve, a marked variation of $C_{M,y}$ is also observed.
+This is consistent with the high sensitivity of the pitching moment to changes in the pressure distribution over the aft part of the lifting surface, where the deflected control surface is located.
+The simultaneous occurrence of the event in both $C_L$ and $C_{M,y}$ therefore suggests that the nonlinear event is associated with a redistribution of aerodynamic loading rather than with a purely local measurement effect.
+
+It is also worth noting that, for $\delta=10^\circ$, the pitching-moment curve exhibits a clear change in slope even though no corresponding signature is evident in either the lift or drag coefficient.
+This indicates that the pitching moment may be sensitive to weaker changes in the flow topology that are not sufficiently strong to affect the integrated force coefficients appreciably.
+The larger jump observed for $\delta=20^\circ$ may therefore result from the combined effect of this moment-sensitive change in the aerodynamic loading and the additional nonlinear response triggered by the larger control-surface deflection.
+
+The following discussion is restricted to $\delta=20^\circ$ and $\delta=30^\circ$.
+These two deflection values are sufficient to represent the onset and development of the pre-stall nonlinearities while keeping the figures readable.
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCdCm_OnlyExp_OnlyRef.pdf}
+\caption{Experimental lift, drag, and pitching-moment coefficients of the reference configuration for all control-surface deflections.}
+\label{fig:Coefficients:OnlyExp}
+\label{fig:Coefficients:OnlyExp}
+\end{figure}
+
+\subsection{Effect of dihedral}
+
+The effect of dihedral angle on the pre-stall nonlinearities is now considered.
+Based on the trends identified for the reference configuration, Fig.~\ref{fig:Coefficients:OnlyExp:vsDA} compares the lift and pitching-moment coefficients of the reference planform for $\Gamma=0^\circ$ and $\Gamma=45^\circ$.
+
+The first effect of the dihedral angle is a reduction of the lift-curve slope.
+This trend is consistent with classical observations on swept wings with geometric dihedral, for which increasing positive or negative dihedral reduces the lift-curve slope \cite{maggin1946dihedral}.
+In the present configuration, this reduction can be interpreted as the combined result of two geometrical effects.
+First, the component of the freestream velocity normal to the inclined lifting surface is reduced with respect to the zero-dihedral case.
+Second, the inclination of the surface introduces an additional cross-flow component, which modifies the three-dimensional boundary-layer development already affected by sweep.
+As a consequence, the lift coefficient is lower over most of the range of investigated angles of attack..
+At the same time, the stall angle is increased at both positive and negative incidences, suggesting a delayed development of large-scale separation on the complete tail plane.
+
+Despite these global changes, the onset of the pre-stall nonlinearity for $\delta=20^\circ$ occurs at approximately the same angle of attack as in the zero-dihedral reference configuration.
+The local change in the lift-curve slope is nevertheless milder, indicating that the dihedral angle reduces the impact of the nonlinear event on the lift coefficient.
+A more evident difference appears for $\delta=30^\circ$.
+Whereas the zero-dihedral configuration shows a shift of the nonlinear event towards lower incidences as the control-surface deflection is increased, the dihedral configuration does not exhibit the same displacement.
+Instead, the nonlinear behaviour remains located around $\alpha\simeq -2^\circ$, close to the onset observed for the lower deflection.
+Moreover, its signature in the lift coefficient is weak and only marginally visible.
+
+The pitching-moment coefficient provides a different perspective.
+For $\delta=20^\circ$, a moderate change in $C_{M,y}$ is observed around $\alpha=-2^\circ$ for $\Gamma=45^\circ$.
+This is consistent with the weaker nonlinear signature observed in the lift coefficient.
+For $\delta=30^\circ$, however, the moment coefficient shows a clearer nonlinear variation, beginning around $\alpha=-4^\circ$.
+This behaviour is stronger than that observed for $\delta=20^\circ$, in contrast with the trend inferred from the lift coefficient alone.
+The pitching moment is therefore more sensitive than the lift coefficient to the changes induced by dihedral in the pre-stall range.
+
+Another important difference concerns the sign of the moment variation.
+For the zero-dihedral configuration, the nonlinear event is associated with an absolute increase in the pitching-moment coefficient.
+For $\Gamma=45^\circ$ and $\delta=30^\circ$, the same type of event produces an absolute decrease of $C_{M,y}$.
+This indicates that the dihedral angle does not merely weaken or delay the nonlinear response, but also modifies the corresponding redistribution of aerodynamic loading with respect to the moment reference point.
+
+Overall, $\Gamma=45^\circ$ dihedral weakens the pre-stall signature in $C_L$ but retains the associated load redistribution.
+The pitching-moment coefficient remains sensitive to the nonlinear event and, for $\delta=30^\circ$, changes sign with respect to the zero-dihedral case.
+Thus, dihedral does not simply delay or attenuate the response; it changes how the local load redistribution affects the integrated coefficients.
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_OnlyExp_vsDA.pdf}
+\caption{Experimental aerodynamic coefficients of the reference planform for \GammaCaption{0} and \GammaCaption{45}.}
+\label{fig:Coefficients:OnlyExp:vsDA}
+\end{figure}
+
+\subsection{Effect of negative sweep}
+
+The negative-sweep geometry shows a weaker pre-stall nonlinear response than the reference positive-sweep planform.
+Because this geometry also differs slightly in aspect ratio and taper ratio, the comparison is interpreted as a planform-sensitivity assessment, with emphasis on the effect of sweep direction rather than as an isolated sweep-angle variation.
+The two configurations nevertheless share the same full-span control-surface concept and comparable global dimensions, making the comparison useful for assessing whether the nonlinearities observed on the reference planform persist when the spanwise organization of the flow is modified.
+
+Figure~\ref{fig:Coefficients:OnlyExp:vsSweep} compares the aerodynamic coefficients of the reference positive-sweep planform and of the negative-sweep geometry described in Table~\ref{tab:geometries}.
+Focusing first on the $C_L$--$\alpha$ curves, the change in planform does not produce a large variation of the pre-stall lift-curve slope for the analysed values of $\delta$.
+In contrast, increasing the dihedral angle, clearly reduced the lift-curve slope.
+% The most evident difference between the two planforms appears instead in the post-stall regime.
+% As discussed in Sec.~\ref{subsec:reference_swept_configuration}, the reference positive-sweep configuration exhibits a lift plateau after $C_{L,\max}$.
+% By contrast, the negative-sweep geometry shows a more pronounced loss of lift immediately after the maximum-lift condition.
+% This indicates that the change in planform has a limited effect on the pre-stall lift-curve slope, but significantly modifies the post-stall behaviour.
+
+% This difference is consistent with the expected influence of sweep direction on the spanwise development of separation.
+% For a forward-swept wing, the spanwise organization of the loading and separation is altered with respect to an aft-swept planform, favouring a more inboard development of the separated region \cite{deyoung1948planform}.
+% Classical investigations of swept-forward wings also reported separation patterns that originate over the inboard portion of the wing and then progress outboard as the angle of attack is increased \cite{mccormack1949sweptforward}.
+% This root-dominated separation process is consistent with the more abrupt degradation of the integrated lift coefficient observed for the negative-sweep geometry.
+
+% The difference in taper ratio between the two planforms should also be considered.
+% The negative-sweep geometry has a larger taper ratio than the reference geometry and is therefore less tapered, i.e. closer to a rectangular planform.
+% Classical analyses of tapered wings indicate that rectangular wings tend to have a more inboard stall onset, whereas increasing taper tends to move the initial stalling point progressively outboard and to reduce the stall margin over the rest of the wing \cite{soule1940taperedwings}.
+% In the present comparison, the larger taper ratio of the negative-sweep geometry is therefore consistent with a separation process that is less dominated by the outboard region than in the positive-sweep reference geometry.
+% Together with the forward-sweep tendency to promote a more inboard development of separation, this may contribute to the more pronounced loss of lift observed after $C_{L,\max}$.
+% This interpretation should nevertheless be regarded as qualitative, because the two planforms differ simultaneously in sweep angle and taper ratio.
+% The relative contribution of each parameter will be assessed more directly through the RANS flow-field analysis.
+
+The most evident difference between the two planforms appears in the post-stall regime.
+As discussed in Sec.~\ref{subsec:reference_swept_configuration}, the reference positive-sweep configuration exhibits a lift plateau after $C_{L,\max}$, whereas the negative-sweep geometry shows a more pronounced loss of lift immediately after maximum lift.
+This behaviour is consistent with the tendency of forward-swept wings to promote inboard separation \cite{deyoung1948planform,mccormack1949sweptforward} and with the larger taper ratio of the negative-sweep geometry, which makes the planform closer to a rectangular wing \cite{soule1940taperedwings}.
+The interpretation remains qualitative because the sweep angle, aspect ratio, and taper ratio vary simultaneously.
+
+Focusing now on the pre-stall regime, the nonlinear response is less pronounced for the negative-sweep geometry.
+For $\delta=20^\circ$, the local change in the $C_L$--$\alpha$ slope is still visible, but it is more limited in both magnitude and in the range of affected incidences.
+The onset of the event is also slightly shifted towards higher incidence, occurring around $\alpha=0^\circ$.
+For $\delta=30^\circ$, the lift curve remains essentially unperturbed throughout the pre-stall linear range, and no clear nonlinear event is observed before the stall is approached.
+
+The pitching-moment coefficient confirms this trend.
+For $\delta=20^\circ$, a pre-stall nonlinearity is still detectable in $C_{M,y}$, but its effect on the coefficient is weaker than in the reference positive-sweep configuration.
+For $\delta=30^\circ$, no clear control-surface-related nonlinear event is observed in the pre-stall range.
+The only visible perturbation occurs near $\alpha=0^\circ$, a feature already observed in the previous comparisons and therefore attributed to a different effect rather than to the pre-stall nonlinearity associated with large control-surface deflection.
+
+Overall, the negative-sweep geometry attenuates the pre-stall nonlinearities observed on the reference positive-sweep planform.
+The nonlinear event remains visible for $\delta=20^\circ$, but with reduced intensity and a slightly delayed onset.
+For $\delta=30^\circ$, the nonlinear signature is essentially suppressed in both $C_L$ and $C_{M,y}$ before stall.
+The comparison therefore indicates that the appearance of the pre-stall nonlinearities is sensitive to the global planform, and not only to the local value of the control-surface deflection.
+
+
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_OnlyExp_vsSweep.pdf}
+\caption{Comparison of experimental aerodynamic coefficients between the reference positive-sweep geometry and the negative-sweep geometry.}
+\label{fig:Coefficients:OnlyExp:vsSweep}
+\end{figure}
+
+\subsection{Summary of experimental trends}
+
+\label{subsec:experimental_summary}
+
+The experimental comparisons discussed above show that the pre-stall nonlinearities depend on both control-surface deflection and tail-plane geometry.
+Table~\ref{tab:experimental_trends} summarizes the cases in which the nonlinear effect are observed in the lift and pitching-moment coefficients.
+The angles $\alpha_{\mathrm{NL}}^{C_L}$ and $\alpha_{\mathrm{NL}}^{C_{M,y}}$ denote the approximate incidence at which the nonlinear effect first appears in $C_L$ and $C_{M,y}$, respectively.
+The signature columns provide a qualitative indication of the visibility and direction of the corresponding coefficient variation.
+
+
+\begin{table}[h!]
+\centering
+\caption{Summary of the pre-stall nonlinearities observed in the experimental aerodynamic coefficients.}
+\label{tab:experimental_trends}
+\begin{tabular}{lccccccc}
+\hline
+\hline
+Configuration & $\lambda$ [deg] & $\Gamma$ [deg] & $\delta$ [deg] & $\alpha_{\mathrm{NL}}^{C_L}$ [deg] & $C_L$ signature & $\alpha_{\mathrm{NL}}^{C_{M,y}}$ [deg] & $C_{M,y}$ signature \\
+\hline
+Reference & $30$ & $0$ & $20$ & $-2^\circ$ & strong & $-4^\circ$ & strong decrease \\
+Reference & $30$ & $0$ & $30$ & $-12^\circ$ & weak/moderate & $-2^\circ$ & strong decrease \\
+Dihedral & $30$ & $45$ & $20$ & $-2^\circ$ & weak & $-2^\circ$ & moderate decrease \\
+Dihedral & $30$ & $45$ & $30$ & $-2^\circ$ & barely visible & $-4^\circ$ & strong increase \\
+Negative sweep & $-15$ & $0$ & $20$ & $0$ & weak & $0$ & weak \\
+Negative sweep & $-15$ & $0$ & $30$ & -- & not evident & -- & not evident \\
+\hline
+\hline
+\end{tabular}
+\end{table}
+
+\section{RANS Assessment for Selected Nonlinear Cases}
+\label{sec:rans_assessment}
+
+The selected RANS simulations are assessed against the wind-tunnel measurements before their flow fields are used for interpretation.
+The purpose is not to validate the numerical model over the full database, but to verify whether the selected solutions reproduce the load-level features relevant to the pre-stall nonlinearities identified in Sec.~\ref{sec:experimental_characterization}.
+
+The comparison of the reference swept configuration is reported in Fig.~\ref{fig:Coefficients:ExpvsNum}, while the dihedral and negative-sweep comparisons are summarized in Table~\ref{tab:rans_targeted_assessment} and reported in Appendix~\ref{app:rans_load_comparisons}.
+
+\subsection{Reference swept configuration}
+\label{subsec:rans_reference}
+
+Figure~\ref{fig:Coefficients:ExpvsNum} compares the experimental and numerical values of $C_L$ and $C_{M,y}$ for the reference swept configuration at $\delta=20^\circ$ and $\delta=30^\circ$.
+These deflections are selected because they correspond to the clearest experimental signatures of the pre-stall nonlinearities in the zero-dihedral reference configuration.
+The comparison focuses on the presence of the nonlinear load variation, its approximate incidence, and its relative strength in $C_L$ and $C_{M,y}$.
+
+Considering first the $C_L$--$\alpha$ curves, the RANS solution captures the main pre-stall trend of the wind-tunnel measurements, starting from incidences above the negative-stall region.
+The numerical results also reproduce the localized change in slope that characterizes the experimental lift curves.
+However, the predicted values of $\alpha_{\mathrm{NL}}^{C_L}$ are slightly higher than the corresponding experimental values.
+This shift produces a visible discrepancy between RANS and experiment in the incidences immediately following the nonlinear event, up to the onset of global stall.
+For $\delta=20^\circ$, the numerical nonlinearity is concentrated between approximately $\alpha=0^\circ$ and $\alpha=2^\circ$, and therefore occurs over a narrower incidence range than in the experiment.
+For $\delta=30^\circ$, the nonlinear variation is stronger in the numerical prediction than in the measurements, although its displacement towards lower incidences is correctly reproduced, with the event occurring around $\alpha=-10^\circ$.
+
+The pitching-moment coefficient shows a similar level of qualitative agreement.
+For $\alpha \gtrsim -20^\circ$, the numerical solution follows the main trend of the wind-tunnel measurements.
+For $\delta=20^\circ$, this agreement is maintained up to approximately $\alpha=-4^\circ$, where the nonlinear variation first becomes visible in $C_{M,y}$.
+Beyond this incidence, the experimental moment coefficient decreases relatively smoothly, whereas the RANS solution predicts a more structured response, with a double change in slope between approximately $\alpha=2^\circ$ and $\alpha=6^\circ$.
+For $\delta=30^\circ$, the agreement in the pitching-moment coefficient is generally better.
+In this case, however, the magnitude of the nonlinear variation predicted by RANS is smaller than that measured in the experiment, in contrast with the behaviour observed for the lift coefficient.
+
+Overall, the RANS simulations reproduce the presence of the pre-stall nonlinearities, but with discrepancies in onset incidence and magnitude.
+% One possible source of discrepancy is the difference between the experimental and numerical boundary conditions near the root: in the wind tunnel, the inboard region is affected by the floor boundary layer, whereas the simulations use a symmetry plane.
+% This difference may influence the development of separated regions over the tail surface and the corresponding manifestation of the nonlinearities in the integrated coefficients.
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_ExpvsNum_OnlyRef.pdf}
+\caption[Comparison of the aerodynamic coefficients between Wind Tunnel and RANS]{Comparison between Wind Tunnel and RANS aerodynamic coefficients for the reference swept configuration at \GammaCaption{0}.}
+\label{fig:Coefficients:ExpvsNum}
+\end{figure}
+
+\subsection{Geometric sensitivity}
+\label{subsec:rans_geometry}
+
+The geometrical variants are assessed at load level using the complete comparisons reported in Appendix~\ref{app:rans_load_comparisons}.
+Table~\ref{tab:rans_targeted_assessment} summarizes the experimental signature, the corresponding RANS behaviour, and the cases retained for the flow-field analysis of Sec.~\ref{sec:flow_mechanism}.
+
+\begin{table}[h!]
+\centering
+\caption{Targeted assessment of RANS predictions for the selected pre-stall nonlinearities and selection of cases for flow-field analysis.}
+\label{tab:rans_targeted_assessment}
+\begin{tabular}{lcccccc}
+\hline
+\hline
+Configuration & $\Gamma$ & $\lambda$ & $\delta$ & Exp. signature & RANS signature & Flow analysis \\
+ & [deg] & [deg] & [deg] & & & \\
+\hline
+Reference & $0$ & $30$ & $20$ & strong in $C_L$, $C_{M,y}$ & captured & baseline event \\
+Reference & $0$ & $30$ & $30$ & weaker in $C_L$, strong in $C_{M,y}$ & captured/shifted & -- \\
+Dihedral & $45$ & $30$ & $20$ & weak in $C_L$, moderate in $C_{M,y}$ & consistent/shifted & -- \\
+Dihedral & $45$ & $30$ & $30$ & weak in $C_L$, strong/opposite in $C_{M,y}$ & absent in $C_L$/shifted & dihedral effect \\
+Negative sweep & $0$ & $-15$ & $20$ & weak in $C_L$, weak in $C_{M,y}$ & weak/consistent & planform effect \\
+Negative sweep & $0$ & $-15$ & $30$ & not evident before stall & not evident & -- \\
+\hline
+\hline
+\end{tabular}
+\end{table}
+
+A possible source of discrepancy between RANS and wind-tunnel measurements is the different treatment of the root region.
+In the experiment, the inboard part of the model is affected by the boundary layer developing on the wind-tunnel floor, whereas the numerical simulations use an ideal symmetry plane at the root.
+This modeling difference may influence the onset and development of separated regions over the tail surface and, consequently, the detailed magnitude and incidence of the pre-stall nonlinearities.
+The effect is expected to be most relevant for configurations in which the separated-flow development is sensitive to the inboard region, such as the positive-dihedral and negative-sweep cases.
+
+The cases retained for the flow-field analysis are indicated in the last column of Table~\ref{tab:rans_targeted_assessment}.
+The reference configuration at $\delta=20^\circ$ is used as the baseline case because it provides the clearest nonlinear event in both $C_L$ and $C_{M,y}$.
+The dihedral case at $\delta=30^\circ$ is retained because the lift signature is weak, whereas the pitching-moment response remains pronounced and changes sign with respect to the zero-dihedral case.
+The negative-sweep case at $\delta=20^\circ$ is retained because it exhibits a detectable but attenuated nonlinear signature.
+These three cases are sufficient to cover the baseline nonlinear event, a dihedral-modified response, and a planform-modified response without requiring a full flow-field analysis of every tested deflection.
+
+\section{Numerical Analysis of the Flow Mechanism}
+\label{sec:flow_mechanism}
+
+The selected RANS solutions are now used to connect the measured pre-stall load variations with the computed surface-flow topology.
+The analysis combines load decomposition between the fixed and deflected portions of the tail plane with surface maps of the lift and pitching-moment contributions per unit surface area, as well as skin-friction lines.
+
+\subsection{Baseline nonlinear event on the reference configuration}
+\label{subsec:flow_reference}
+
+Figure~\ref{fig:Coefficients:Num:RefDelta20} reports the decomposition of the numerical loads between the fixed portion of the tail plane and the deflected control surface for the reference planform at $\delta=20^\circ$.
+The lift contribution of the control surface is multiplied by a factor of four to make local slope variations more visible.
+
+For this geometry and control-surface deflection, the numerical onset of the pre-stall nonlinearity occurs around $\alpha=0^\circ$.
+The fixed-surface contribution shows only a weak change in slope in this region and therefore does not appear to be the primary source of the nonlinear behavior in lift.
+By contrast, the control-surface contribution exhibits a marked reduction in $C_L$ after an initial increase with angle of attack.
+This loss is not recovered at higher incidences, whereas the fixed-surface and total lift coefficients continue to increase up to the global-stall region.
+The load decomposition, therefore, indicates that the nonlinear variation in the total lift coefficient is primarily associated with a change in the aerodynamic state of the deflected control surface.
+This behavior is consistent with the onset or growth of separated flow over the control surface.
+
+The pitching-moment decomposition shows that the slope change around $\alpha=0^\circ$ receives contributions from both the fixed surface and the control surface.
+In this case, the fixed surface provides a substantial part of the moment variation, with a progressive reduction of $C_{M,y}$ beginning around $\alpha=-6^\circ$ and extending up to approximately $\alpha=12^\circ$.
+The control surface also exhibits a distinct change around $\alpha=0^\circ$, comparable in magnitude to the variation of the fixed-surface contribution.
+At larger incidences, however, the control-surface contribution increases and partially compensates the reduction associated with the fixed surface, although not enough to reverse the trend of the total pitching moment.
+Thus, the change in slope of the total $C_{M,y}$ between $\alpha=0^\circ$ and $\alpha=2^\circ$ results from a coupled load redistribution over both the fixed and the deflected portions of the tail plane.
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_Num_Ref_Delta_20.pdf}
+\caption{RANS load decomposition for the reference configuration at \DeltaCaption{20}.
+The total lift and pitching-moment coefficients are decomposed into contributions from the fixed surface and from the deflected control surface.}
+\label{fig:Coefficients:Num:RefDelta20}
+\end{figure}
+
+Figure~\ref{fig:FlowTopology:RefDelta20} shows the corresponding surface-flow visualizations for $\alpha=0^\circ$, $\alpha=2^\circ$, and $\alpha=4^\circ$.
+The upper side of the tail surface is shown.
+The first row is coloured by the contribution to the lift coefficient per unit surface area, while the second row is coloured by the contribution to the pitching-moment coefficient per unit surface area.
+In both rows, the black curves represent the skin-friction lines, whose direction is indicated by the white arrows.
+
+At $\alpha=0^\circ$, the surface streamlines indicate that the flow is largely attached over most of the upper surface.
+However, because of the large control-surface deflection, a strong cross-flow component develops immediately downstream of the fixed-surface/control-surface junction and intensifies towards the trailing edge.
+A small reversed-flow region is already visible near the tip, where the local chord, and therefore the local Reynolds number, is lower.
+As the angle of attack is increased, a rapid trailing-edge separation develops over almost the full span of the control surface.
+The separated region remains confined to the deflected control surface and does not extend significantly onto the fixed portion of the tail plane.
+A further increase in angle of attack produces only a limited growth of the reversed-flow region, mainly at the most inboard stations, where the chordwise extent of the control surface is larger because of the taper ratio.
+
+The effect of the control-surface separation on the lift coefficient is visible in the first row of Fig.~\ref{fig:FlowTopology:RefDelta20}.
+At $\alpha=0^\circ$, most of the upper surface produces a positive contribution to lift, consistently with the largely attached state of the flow.
+A narrow region of negative contribution is localized near the trailing edge, where the pressure recovery associated with the geometric discontinuity takes place.
+When a reverse flow appears over the control surface, this trailing-edge region is strongly modified because a conventional pressure recovery is no longer established.
+At the same time, the positive lift contribution over a large portion of the control surface decreases, including the contribution associated with the acceleration around the fixed-surface/control-surface junction.
+This explains the sudden slope change observed in the $C_L$--$\alpha$ curves in Fig.~\ref{fig:Coefficients:ExpvsNum}.
+
+The fixed portion of the tail plane, however, does not experience flow separation over the same incidence range.
+As the angle of attack is increased, the flow accelerates more strongly near the leading edge, increasing the positive lift contribution of the fixed surface.
+This increase eventually dominates the loss associated with the separated control surface and allows the total lift curve to recover a slope close to the pre-event value once the separation has spread over the control surface.
+
+The pitching-moment contribution shows a stronger coupling between the fixed surface and the control surface..\textcolor{red}{DOPPIO PUNTO!!!!}
+As shown in Fig.~\ref{fig:Coefficients:Num:RefDelta20}, the change in $C_{M,y}$ around $\alpha\simeq0^\circ$ receives contributions from both regions.
+For the fixed surface, the main contribution is related to the increase in suction at the inboard stations near the leading edge.
+Its effect on the pitching moment is amplified by its distance from the aerodynamic-centre axis.
+This contribution is partially counterbalanced by regions towards the tip, whose influence on the pitching moment is weaker.
+
+For the control surface, the contribution to $C_{M,y}$ at $\alpha=0^\circ$ is mainly negative, except for the narrow trailing-edge strip already identified in the lift contribution.
+Most of the negative contribution is concentrated near the fixed-surface/control-surface junction, where the flow accelerates because of the local curvature.
+Once reverse flow develops over the control surface, this contribution is largely reduced, consistently with the loss of lift contribution observed in the same region.
+The increase in leading-edge suction on the fixed surface and the loss of control-surface contribution therefore act together to increase the total pitching-moment coefficient over the nonlinear interval.
+As the angle of attack is further increased, the control surface is already largely separated, and the subsequent variation of the total pitching moment is mainly driven by the fixed-surface contribution.
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{1cm}}
+\hline
+\hline
+&
+$\boldsymbol{\alpha} \mathbf{ = 0^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 2^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 4^\circ}$
+&
+\\
+\hline
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{L}}$}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_0_Delta_20_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_2_Delta_20_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_4_Delta_20_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_0_Delta_20_UpperSurface_CL.png}}
+\\
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{M,y}}$}
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_0_Delta_20_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_2_Delta_20_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\MaskedImage[width=0.28\textwidth]{RefPlan_AoA_4_Delta_20_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+    \maskrecttl{0.7}{0.72}{0.26}{0.3}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlan_AoA_0_Delta_20_UpperSurface_CMy.png}}
+
+\\
+\hline
+\hline
+\end{tabular}
+\caption{Computed surface-flow topology for the reference planform at \DeltaCaption{20} across the pre-stall nonlinear event. The columns correspond to \AlphaCaption{0}, \AlphaCaption{2}, and \AlphaCaption{4}. The upper row reports the lift coefficient per unit surface area $\mathbf{C_{L}}$ with skin-friction lines, while the lower row reports the pitching-moment coefficient per unit surface area $\mathbf{C_{M,y}}$ with the same streamline pattern. The green vertical line represents the Aerodynamic Center Axis.}
+\label{fig:FlowTopology:RefDelta20}
+\end{figure}
+
+% \begin{figure}[h!]
+% \centering
+
+% \begin{tabular}{
+% >{\centering\arraybackslash}m{1cm}
+% >{\centering\arraybackslash}m{5.8cm}
+% >{\centering\arraybackslash}m{5.8cm}
+% >{\centering\arraybackslash}m{2cm}
+% }
+% \hline
+% \hline
+% $\mathbf{2y/b}$
+% &
+% $\mathbf{C_L}$
+% &
+% $\mathbf{C_{M,y}}$
+% &
+% \\
+% \hline
+
+% $\mathbf{0.25}$
+% &
+% \includegraphics[width=0.34\textwidth, clip, trim={0cm 0cm 0cm 0cm}]{RefPlan_Delta_20_Slice_5_CL.pdf}
+% &
+% \vspace{0.1cm}
+% \includegraphics[width=0.35\textwidth, clip, trim={0cm 0cm 0cm 0cm}]{RefPlan_Delta_20_Slice_5_CMy.pdf}
+% &
+% \multirow[c]{3}{*}[-2.5cm]{\includegraphics[width=1
+% \linewidth, height=1\linewidth, clip, trim={39cm 9.5cm 0cm 6.8cm}]{Multi_Delta_20.pdf}}
+
+% \\
+
+% $\mathbf{0.5}$
+% &
+% % \vspace{0.1cm}
+% \includegraphics[width=0.35\textwidth, clip, trim={0cm 0cm 0cm 0cm}]{RefPlan_Delta_20_Slice_10_CL.pdf}
+% &
+% \includegraphics[width=0.35\textwidth, clip, trim={0cm 0cm 0cm 0cm}]{RefPlan_Delta_20_Slice_10_CMy.pdf}
+% &
+% \\
+
+% $\mathbf{0.75}$
+% &
+% % \vspace{0.1cm}
+% \includegraphics[width=0.35\textwidth, clip, trim={0cm 0cm 0cm 0cm}]{RefPlan_Delta_20_Slice_15_CL.pdf}
+% &
+% \includegraphics[width=0.35\textwidth, clip, trim={0cm 0cm 0cm 0cm}]{RefPlan_Delta_20_Slice_15_CMy.pdf}
+% &
+% \\
+
+% &
+% \,\,\,\,\,x/c
+% &
+% \,\,\,\,\,\,\,\,\,x/c
+% &
+% \\
+
+% \hline
+% \hline
+% \end{tabular}
+
+% \caption{Chordwise distribution of cellwise lift and pitching moment coefficients for three sections along the span. Three angles of attack considered, namely \AlphaCaption{0}, \AlphaCaption{2}, and \AlphaCaption{4}.}
+% \label{fig:LoadDistr:RefDelta20}
+
+% \end{figure}
+
+\subsection{Influence of dihedral on the load redistribution}
+\label{subsec:flow_dihedral}
+
+
+Following the analysis of the reference planform, the configuration with positive dihedral is now considered.
+Figure~\ref{fig:Coefficients:Num:PosGammaDelta30} reports the decomposition of the numerical lift and pitching-moment coefficients into contributions from the fixed surface and from the deflected control surface for \DeltaSimple{30}.
+As summarized in Table~\ref{tab:rans_targeted_assessment}, neither the numerical nor the wind-tunnel results show a clear pre-stall nonlinearity in the lift coefficient for this case.
+The pitching-moment coefficient, however, still exhibits a change in slope around $\alpha\simeq0^\circ$.
+This variation has the opposite sign with respect to the response observed for the zero-dihedral reference configuration and also differs from the behaviour of the same dihedral configuration at \DeltaSimple{20}.
+
+The absence of a visible slope change in the total $C_L$--$\alpha$ curve can be understood from the load decomposition.
+Contrary to the reference case in Fig.~\ref{fig:Coefficients:Num:RefDelta20}, the lift contribution of the control surface does not increase up to the incidence at which flow reversal appears.
+Instead, the control-surface contribution remains nearly constant over the lower-incidence range and then decreases progressively from approximately $\alpha=10^\circ$.
+This behaviour is consistent with a control surface whose upper side is already largely separated over a broad portion of the angle-of-attack range.
+As a consequence, the approximately linear variation of the total lift coefficient is mainly produced by the fixed surface, which does not show a clear slope break in the pre-stall region.
+
+The same load decomposition clarifies the behaviour of the pitching-moment coefficient.
+The control surface mainly provides a positive offset to the fixed-surface contribution, with only a weak dependence on the angle of attack.
+The change in slope of the total pitching moment around $\alpha\simeq-2^\circ$ is therefore mainly associated with the fixed surface.
+In contrast with the zero-dihedral case, the positive dihedral combined with \DeltaSimple{30} produces a concave $C_{M,y}$--$\alpha$ curve away from the global-stall region, and the nonlinear behaviour is governed primarily by the evolution of the loading on the fixed portion of the tail plane.
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_Num_PosGamma_Delta_30.pdf}
+\caption{RANS load decomposition for the positive-dihedral configuration at \DeltaCaption{30}.
+The total lift and pitching-moment coefficients are decomposed into contributions from the fixed surface and from the deflected control surface.}
+\label{fig:Coefficients:Num:PosGammaDelta30}
+\end{figure}
+
+The corresponding surface-flow topology is shown in Fig.~\ref{fig:FlowTopology:PosGammaDelta30}.
+The figure reports the unit surface area contribution to the pitching-moment coefficient on the upper surface of the tail plane, together with skin-friction lines.
+The selected incidences, $\alpha=-2^\circ$, $\alpha=0^\circ$, and $\alpha=2^\circ$, span the range over which the change in slope of the $C_{M,y}$--$\alpha$ curve is observed.
+
+The surface streamlines confirm that reverse flow is already present over the upper side of the control surface at these low incidences.
+This supports the interpretation obtained from the load decomposition: the moment variation is not primarily caused by a new separation event on the control surface, but by a redistribution of loading on the fixed surface.
+
+A negative contribution to $C_{M,y}$ is visible in the outboard leading-edge region, whereas this feature was not observed in the same form for the zero-dihedral configuration.
+This contribution is related to the spatial rotation introduced by the dihedral angle and to the definition of the aerodynamic-centre axis, which remains perpendicular to the symmetry plane and located at $z=0$.
+As the angle of attack is increased from $-2^\circ$ to $0^\circ$, the suction over the outboard leading-edge region strengthens, and its negative contribution to the pitching moment becomes more pronounced.
+Moreover, a marked increase in the negative contribution over the outboard portion of the fixed surface is observed.
+The positive contribution from the inboard region increases less rapidly, partly because its moment arm with respect to the aerodynamic-centre axis is smaller than that of the outboard region.
+
+This mechanism explains the change in slope of the total $C_{M,y}$ curve for the positive-dihedral case around $\alpha\approx0^\circ$.
+The variation is driven mainly by the growth of the outboard fixed-surface contribution, while the control surface remains largely separated and behaves primarily as an offset to the total moment.
+Thus, for the dihedral configuration at \DeltaSimple{30}, the pre-stall moment nonlinearity is not associated with a sudden separation event on the control surface.
+Instead, it results from a geometry-induced redistribution of the fixed-surface loading relative to the aerodynamic-centre axis.
+
+At $\alpha=2^\circ$, small reversed-flow regions are also visible near the outboard leading edge.
+These structures should not be interpreted as global stall, but as localized leading-edge recirculation regions, consistent with incipient leading-edge separation or laminar-separation-bubble behaviour on finite swept wings \cite{toppings2021lsb,diebold2012iced}.
+In the present geometry, positive sweep, positive dihedral, and the smaller local chord near the tip may all contribute to the sensitivity of this region, although their individual effects cannot be isolated here.
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{1cm}}
+\hline
+\hline
+&
+$\boldsymbol{\alpha} \mathbf{ = -2^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 0^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 2^\circ}$
+&
+\\
+\hline
+
+% \makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{L}}$}
+% &
+% \MaskedImage[width=0.27\textwidth, clip, trim={0cm 2cm 0cm 13cm}]{RefPlanNegGam_AoA_-2_Delta_30_UpperSurface_CL.png}{%
+%     \maskrecttl{0.0}{0.0}{0.3}{0.63}
+% }
+
+% &
+% \MaskedImage[width=0.27\textwidth, clip, trim={0cm 2cm 0cm 13cm}]{RefPlanNegGam_AoA_0_Delta_30_UpperSurface_CL.png}{%
+%     \maskrecttl{0.0}{0.0}{0.3}{0.63}
+% }
+
+% &
+% \MaskedImage[width=0.27\textwidth, clip, trim={0cm 2cm 0cm 13cm}]{RefPlanNegGam_AoA_2_Delta_30_UpperSurface_CL.png}{%
+%     \maskrecttl{0.0}{0.0}{0.3}{0.63}
+% }
+
+% &
+% \multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+% \linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlanNegGam_AoA_2_Delta_30_UpperSurface_CL.png}}
+% \\
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{M,y}}$}
+&
+\MaskedImage[width=0.27\textwidth, clip, trim={0cm 2cm 0cm 13cm}]{RefPlanNegGam_AoA_-2_Delta_30_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+}
+
+&
+\MaskedImage[width=0.27\textwidth, clip, trim={0cm 2cm 0cm 13cm}]{RefPlanNegGam_AoA_0_Delta_30_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+}
+
+&
+\MaskedImage[width=0.27\textwidth, clip, trim={0cm 2cm 0cm 13cm}]{RefPlanNegGam_AoA_2_Delta_30_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.3}{0.63}
+}
+
+&
+
+\multirow[c]{1}{*}[1.5cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlanNegGam_AoA_2_Delta_30_UpperSurface_CMy.png}}
+
+% \multirow[c]{2}{*}[1.5cm]{\includegraphics[width=1.2
+% \linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{RefPlanNegGam_AoA_2_Delta_30_UpperSurface_CMy.png}}
+
+% \\
+
+% \makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{M,y}}$}
+% &
+% \MaskedImage[width=0.28\textwidth]{RefPlan_AoA_-2_Delta_30_UpperSurface_CMy.png}{%
+%     \maskrecttl{0.0}{0.0}{0.3}{0.63}
+% }
+
+% &
+% \MaskedImage[width=0.28\textwidth]{RefPlan_AoA_0_Delta_30_UpperSurface_CMy.png}{%
+%     \maskrecttl{0.0}{0.0}{0.3}{0.63}
+% }
+
+% &
+% \MaskedImage[width=0.28\textwidth]{RefPlan_AoA_2_Delta_30_UpperSurface_CMy.png}{%
+%     \maskrecttl{0.0}{0.0}{0.3}{0.63}
+% }
+
+% &
+
+\\
+\hline
+\hline
+\end{tabular}
+\caption{Computed surface-flow topology for the reference planform with \GammaCaption{45} and \DeltaCaption{30} across the pre-stall nonlinear event. The columns correspond to \AlphaCaption{-2}, \AlphaCaption{0}, and \AlphaCaption{2}. The upper surface of the tail geometry is colored by the pitching-moment coefficient per unit surface area $\mathbf{C_{M,y}}$. The surface streamlines are aligned with the skin friction coefficient. The green vertical line represents the Aerodynamic Center Axis.}
+\label{fig:FlowTopology:PosGammaDelta30}
+\end{figure}
+
+\subsection{Influence of negative sweep on the separated-flow development}
+\label{subsec:flow_negative_sweep}
+
+The negative-sweep configuration is now considered to assess whether the attenuation of the pre-stall nonlinearities follows the same general explanation identified for the positive-dihedral case.
+
+Figure~\ref{fig:Coefficients:Num:NegSweepDelta20} reports the decomposition of the numerical lift and pitching-moment coefficients into contributions from the fixed surface and from the deflected control surface.
+The control-surface contribution to $C_L$ shows a change in slope around $\alpha\simeq0^\circ$, which corresponds to the incidence range where the experimental data exhibit the weak nonlinear behaviour.
+However, the numerical solution does not reproduce this effect with the same magnitude.
+The slight decrease in lift generated by the control surface is almost completely compensated by the increase in the fixed-surface contribution.
+As a result, the total $C_L$ curve remains smooth in the pre-stall range.
+The only clear slope discontinuity in the numerical lift curve appears around $\alpha\simeq6^\circ$, close to the onset of global stall.
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_Num_NegSweep_Delta_20.pdf}
+\caption{RANS load decomposition for the negative-sweep configuration at \DeltaCaption{20}. The total lift and pitching-moment coefficients are decomposed into contributions from the fixed surface and from the deflected control surface.}
+\label{fig:Coefficients:Num:NegSweepDelta20}
+\end{figure}
+
+A similar interpretation applies to the pitching-moment coefficient.
+Away from the stall, the total $C_{M,y}$ varies smoothly with the angle of attack.
+Even in the incidence range preceding stall, no corresponding discontinuity is visible in the total pitching moment.
+The load decomposition shows that the increase in the control-surface contribution is counterbalanced by a decrease in the fixed-surface contribution.
+This compensation explains why the integrated $C_{M,y}$ curve does not exhibit a clear pre-stall nonlinear signature in the numerical results.
+
+The corresponding surface-flow topology is shown in Fig.~\ref{fig:FlowTopology:NegSweepDelta20} for $\alpha=-2^\circ$, $\alpha=0^\circ$, and $\alpha=2^\circ$.
+Reverse flow is already visible over the control surface at \AlphaSimple{-2}.
+At the same time, the tip region remains attached, consistently with the expected tendency of negatively swept surfaces to develop separation from the root towards the tip, in contrast with the outboard-dominated separation typical of positively swept geometries.
+As the incidence is increased to \AlphaSimple{0}, the reversed-flow region contracts towards the root and reaches its minimum extent.
+It then expands again at \AlphaSimple{2}.
+The local maximum of the control-surface lift contribution around \AlphaSimple{0} is therefore consistent with the reduced extent of the separated region at this incidence.
+
+
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{tabular}{>{\centering\arraybackslash}m{1.4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}m{1cm}}
+\hline
+\hline
+&
+$\boldsymbol{\alpha} \mathbf{ = -2^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 0^\circ}$
+&
+$\boldsymbol{\alpha} \mathbf{ = 2^\circ}$
+&
+\\
+\hline
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{L}}$}
+&
+\MaskedImage[width=0.27\textwidth]{NegSweep_AoA_-2_Delta_20_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.28}{0.63}
+}
+
+&
+\MaskedImage[width=0.27\textwidth]{NegSweep_AoA_0_Delta_20_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.28}{0.63}
+}
+
+&
+\MaskedImage[width=0.27\textwidth]{NegSweep_AoA_2_Delta_20_UpperSurface_CL.png}{%
+    \maskrecttl{0.0}{0.0}{0.28}{0.63}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{NegSweep_AoA_2_Delta_20_UpperSurface_CL.png}}
+\\
+
+\makecell[c]{\textbf{Cell-wise}\\ $\mathbf{C_{M,y}}$}
+&
+\MaskedImage[width=0.27\textwidth]{NegSweep_AoA_-2_Delta_20_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.28}{0.63}
+}
+
+&
+\MaskedImage[width=0.27\textwidth]{NegSweep_AoA_0_Delta_20_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.28}{0.63}
+}
+
+&
+\MaskedImage[width=0.27\textwidth]{NegSweep_AoA_2_Delta_20_UpperSurface_CMy.png}{%
+    \maskrecttl{0.0}{0.0}{0.28}{0.63}
+}
+
+&
+\multirow[c]{1}{*}[1.7cm]{\includegraphics[width=1.2
+\linewidth, height=3.6\linewidth, clip, trim={8cm 40cm 84cm 0cm}]{NegSweep_AoA_2_Delta_20_UpperSurface_CMy.png}}
+
+\\
+\hline
+\hline
+\end{tabular}
+\caption{Computed surface-flow topology for the negatively swept planform at \DeltaCaption{20} across the pre-stall nonlinear event. The columns correspond to \AlphaCaption{-2}, \AlphaCaption{0}, and \AlphaCaption{2}. The upper row reports the lift coefficient per unit surface area $\mathbf{C_{L}}$ with skin-friction lines, while the lower row reports the pitching-moment coefficient per unit surface area $\mathbf{C_{M,y}}$ with the same streamline pattern. The green vertical line represents the Aerodynamic Center Axis.}
+\label{fig:FlowTopology:NegSweepDelta20}
+\end{figure}
+
+The same flow evolution also helps interpret the pitching-moment contribution.
+When the reversed-flow region over the control surface contracts, the suction near the fixed-surface/control-surface junction becomes stronger.
+Because of its location relative to the aerodynamic-centre axis, this junction suction produces a negative contribution to $C_{M,y}$.
+At the same time, increasing the angle of attack strengthens the suction near the leading edge of the fixed surface.
+This leading-edge suction produces a positive contribution to $C_{M,y}$.
+The total pitching-moment coefficient, therefore, results from the balance between a negative contribution associated with the junction region and a positive contribution associated with the leading-edge region.
+In the negative-sweep case, these two contributions evolve smoothly and partially compensate each other over the pre-stall range.
+As a result, the total $C_{M,y}$ does not exhibit an abrupt pre-stall slope change, but varies gradually up to the stall region.
+
+The absence of a sharp variation in the total $C_{M,y}$ is therefore not caused by the absence of local changes in the surface loading.
+Rather, it results from the compensation between the negative moment contribution generated near the fixed-surface/control-surface junction and the positive moment contribution generated near the leading edge of the fixed surface.
+This differs from the interpretation of the reference case, where the rapid loss of control-surface lift was associated with the sudden development of separation over the deflected surface.
+
+As discussed in Sec.~\ref{subsec:rans_geometry}, the comparison for this configuration may be particularly sensitive to the modelling of the root region, because the numerical symmetry plane does not reproduce the wind-tunnel floor boundary layer.
+
+% The similarity between the positive-dihedral and negative-sweep cases suggests that part of the RANS--experiment discrepancy may be related to the treatment of the root region.
+% In the simulations, the root is modelled as a symmetry plane, whereas the experiment includes the wind-tunnel floor boundary layer.
+% This difference may affect the onset and development of separated regions rooted near the inboard part of the model, especially for the positive-dihedral and negative-sweep configurations.
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+An experimental--numerical investigation of pre-stall nonlinearities in swept tail planes with full-span control surfaces has been presented.
+Wind-tunnel measurements show that abrupt variations of the aerodynamic coefficients can occur before global stall when the control-surface deflection is sufficiently large.
+For the reference positive-sweep configuration, the nonlinear response first appears at $\delta=20^\circ$ and is visible in both $C_L$ and $C_{M,y}$, indicating a redistribution of aerodynamic loading rather than a lift-specific effect.
+
+The geometrical comparisons show that the nonlinear response is not governed by control-surface deflection alone.
+Introducing $\Gamma=45^\circ$ dihedral weakens the signature in $C_L$ but preserves and modifies the pitching-moment response, while the negative-sweep geometry further attenuates the pre-stall nonlinearities.
+The nonlinear event is therefore sensitive to how the global geometry projects local load changes onto the integrated aerodynamic coefficients.
+
+The targeted RANS assessment shows that the simulations reproduce the main qualitative signatures of the measured nonlinearities, although discrepancies remain in onset angle and magnitude.
+The load decomposition and surface-flow visualizations indicate that, for the reference configuration, the lift nonlinearity is primarily associated with a loss of control-surface lift caused by separated-flow development over the deflected surface.
+For the dihedral and negative-sweep configurations, the integrated response is instead strongly affected by fixed-surface load redistribution and compensation between fixed-surface and control-surface contributions.
+
+These results indicate that reduced-order models based only on smooth control derivatives or global-stall corrections may miss abrupt pre-stall load variations associated with localized separation and geometry-dependent load redistribution.
+Future work will assess the influence of wind-tunnel floor boundary-layer effects and root-region modelling on the RANS predictions.
+The role of laminar-to-turbulent transition in the onset and development of the nonlinear event will also be investigated.
+
+\section*{Appendix}
+\section{Additional RANS--Experiment Load Comparisons}
+\label{app:rans_load_comparisons}
+
+This appendix reports the complete RANS--experiment comparisons used to support the targeted assessment summarized in Table~\ref{tab:rans_targeted_assessment}.
+The Figures \ref{fig:Coefficients:ExpvsNum:vsDA} and \ref{fig:Coefficients:ExpvsNum:vsSweep} include the lift and pitching-moment coefficients for the selected geometries and control-surface deflections.
+For consistency with the main text, only $\delta=20^\circ$ and $\delta=30^\circ$ are reported.
+The remaining deflections are part of the MONNALISA database and are not repeated here.
+
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_ExpvsNum_vsDA.pdf}
+\caption{RANS--WT comparison for the reference planform with \GammaCaption{45} at \DeltaCaption{20} and \DeltaCaption{30}.}
+\label{fig:Coefficients:ExpvsNum:vsDA}
+\end{figure}
+
+
+\begin{figure}[h!]\centering
+    \includegraphics[width=\textwidth]{ClCm_ExpvsNum_vsSweep.pdf}
+\caption{RANS--WT comparison for the negative-sweep geometry with \GammaCaption{0} at \DeltaCaption{20} and \DeltaCaption{30}.}
+\label{fig:Coefficients:ExpvsNum:vsSweep}
+\end{figure}
+
+\section*{Acknowledgments}
+This project has received funding from the Clean Sky 2 Joint Undertaking (JU) under grant agreement No 101008257. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the Clean Sky 2 JU members other than the Union.
+
+\bibliography{References}
+
+\end{document}

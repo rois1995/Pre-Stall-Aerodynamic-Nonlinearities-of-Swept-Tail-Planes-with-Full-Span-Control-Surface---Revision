@@ -24,7 +24,7 @@ Alex Zanotti\footnote{Associate Professor, Department of Aerospace Science and T
 \maketitle
 \begin{abstract}
 \label{anchor:abstract}
-Local loading changes on a swept lifting surface with a deflected plain control can alter lift growth and pitching moment well before maximum lift. MONNALISA wind-tunnel measurements and Reynolds-averaged Navier--Stokes calculations are used to examine how fixed-surface and full-span control loads combine in this response. For the positive-sweep, zero-dihedral model at $\delta=20\degc$, the computed fixed surface continues gaining lift while both surface contributions fall below their preceding incidence trends. Across the tested baseline windows, the fixed surface accounts for about 63\% of the total lift departure; the control contributes more strongly to the moment departure about the fitted aerodynamic center. Pressure sections and regional integrations connect these different allocations to stronger leading-edge suction, reduced hinge/aft loading, and larger outboard moment weights. Matched dihedral comparisons distinguish absolute load projection from changes with incidence. The forward-swept planform gives weaker aft losses and a different spanwise moment allocation. The detailed interpretation concerns the computed states, for which correspondence with measured integrated coefficients is partial. The combined force and moment analysis identifies loading changes that continuing total lift growth alone would conceal.
+Local loading changes on a swept lifting surface with a deflected plain control can alter lift growth and pitching moment well before maximum lift. MONNALISA wind-tunnel measurements and Reynolds-averaged Navier--Stokes calculations are used to examine how fixed-surface and full-span control loads combine in this response. For the positive-sweep, zero-dihedral model at $\delta=20\degc$, the computed fixed surface continues gaining lift while both surface contributions fall below their preceding incidence trends. Across the tested baseline windows, the fixed surface accounts for about 63\% of the total lift departure; the control contributes more strongly to the moment departure about the fitted aerodynamic center. Pressure sections and regional integrations connect these different allocations to stronger leading-edge suction, reduced hinge/aft loading, and larger outboard moment weights. Matched dihedral comparisons resolve incidence-dependent changes in lift growth and the force contributions to pitching moment. The forward-swept planform gives weaker aft losses and a different spanwise moment allocation. The detailed interpretation concerns the computed states, for which correspondence with measured integrated coefficients is partial. The combined force and moment analysis identifies loading changes that continuing total lift growth alone would conceal.
 
 \end{abstract}
 
@@ -36,7 +36,6 @@ $C_M^A,C_M^O,C_M^{A_I}$ & moments about aerodynamic center, origin, or common co
 $C_p,\ \mathbf C_f,C_{f,c}$ & pressure, vector skin-friction, and chordwise skin-friction coefficients \\
 $D_{Q,j}$ & departure from the preceding coefficient trend \\
 $F_k$ & body-force component, N \\
-$F_n,F_s$ & panel-normal and local spanwise force, N \\
 $\mathcal I_M$ & dihedral contrast of moment increments \\
 $M_\infty$ & freestream Mach number \\
 $Q$ & coefficient label, $L$ or $M$ \\
@@ -316,11 +315,9 @@ Figure~\ref{fig:comparison_dihedral} brings together the measured dihedral contr
 
 The computed sequence has weaker correspondence with these measurements. At $\delta=20\degc$, numerical lift decreases over $\alpha=-6\to-4\degc$ while measured lift increases; RANS does not convincingly reproduce the sustained measured slowdown or its weak moment feature. At $\delta=30\degc$, the negative numerical moment change occurs over $\alpha=-2\to0\degc$, one sampled interval later than the measured change. The following decomposition consequently concerns the computed dihedral response.
 
-Lift is defined in the same global frame for both geometries. At $\alpha=0\degc$, it is the vertical force $F_z$. The projection in Fig.~\ref{fig:dihedral}(a) concerns the force normal to the panel, denoted $F_n$, whose direction tilts with dihedral. A force of unchanged magnitude would then provide only $F_n\cos\Gamma$ vertically. A force $F_s$ along the tilted span also contributes vertically, giving $F_z=F_n\cos\Gamma+F_s\sin\Gamma$.
+At $\alpha=0\degc$, dihedral reduces the vertical contribution of a given panel-normal force; the lift direction remains common to both geometries.
 
-Figure~\ref{fig:dihedral}(b) illustrates this distinction at $\alpha=0\degc$, $\delta=20\degc$. Tilting the reference panel-normal force while holding its magnitude fixed gives $0.8422\cos45^\circ=0.5955$ in lift coefficient. This accounts for 0.2467 of the reduction from the reference value. The actual $\Gamma=45\degc$ result is 0.5407; the remaining reduction of 0.0548 comes from the changed panel-normal load and the vertical contribution of the local spanwise force. The lift direction remains fixed throughout this comparison.
-
-A constant scaling of lift cannot describe the computed incidence response. At the same $\delta=20\degc$ deflection, the actual lift increase over $\alpha=-2\to0\degc$ is 0.1210 at zero dihedral and 0.0763 at $\Gamma=45\degc$. Across the next interval, $\alpha=0\to2\degc$, the ordering reverses: the increases are 0.0242 and 0.0444. Although the dihedral model has lower absolute lift, it gains more lift over that latter interval. The change in ordering establishes an incidence-dependent difference in computed loading beyond a fixed projection factor. Table~\ref{tab:geometry_budget} shows that the $\Gamma=45\degc$ fixed surface still gains lift over $\alpha=0\to2\degc$, while the control loses lift. Its moment about the numerical aerodynamic center decreases through contributions from the fixed surface, control and tip. The table retains the tip explicitly because its moment contribution is appreciable in these dihedral cases.
+The computed lift increments change differently with incidence on the two models. At the same $\delta=20\degc$ deflection, the actual lift increase over $\alpha=-2\to0\degc$ is 0.1210 at zero dihedral and 0.0763 at $\Gamma=45\degc$. Across the next interval, $\alpha=0\to2\degc$, the ordering reverses: the increases are 0.0242 and 0.0444. Although the dihedral model has lower absolute lift, it gains more lift over that latter interval. The change in ordering shows that the relative lift growth depends on incidence. Table~\ref{tab:geometry_budget} shows that the $\Gamma=45\degc$ fixed surface still gains lift over $\alpha=0\to2\degc$, while the control loses lift. Its moment about the numerical aerodynamic center decreases through contributions from the fixed surface, control and tip. The table retains the tip explicitly because its moment contribution is appreciable in these dihedral cases.
 
 \begin{table}[htbp]\centering\small
 \caption{Actual coefficient increments for the dihedral and forward-swept cases; moments are about their corresponding numerical aerodynamic centers.}\label{tab:geometry_budget}
@@ -329,7 +326,7 @@ Geom., $\Gamma$, $\delta$, $\alpha$ interval & Increment & Fixed & Control & Tip
 \tablerows{tables_revision/geometry_budget_rows}
 \bottomrule\end{tabular}\end{table}
 
-Pitching moment depends on where $F_x$ and $F_z$ act. Dihedral places the loading above the reference axis, so $F_x$ contributes through the vertical arm $z$. The $F_z$ contribution is weighted by the downstream arm $x-x_A$ (Eq.~\ref{eq:moment}). Both numerical solutions are referred to the same physical axis $A_I$. Figure~\ref{fig:dihedral}(c,d) compares their moment increments through
+Pitching moment depends on where $F_x$ and $F_z$ act. Dihedral places the loading above the reference axis, so $F_x$ contributes through the vertical arm $z$. The $F_z$ contribution is weighted by the downstream arm $x-x_A$ (Eq.~\ref{eq:moment}). Both numerical solutions are referred to the same physical axis $A_I$. Figure~\ref{fig:dihedral}(a,b) compares their moment increments through
 \begin{equation}
  \mathcal I_M=[C_{M,45}^{A_I}(\alpha_b)-C_{M,45}^{A_I}(\alpha_a)]
              -[C_{M,0}^{A_I}(\alpha_b)-C_{M,0}^{A_I}(\alpha_a)]
@@ -338,7 +335,7 @@ Pitching moment depends on where $F_x$ and $F_z$ act. Dihedral places the loadin
 A negative $\mathcal I_M$ means that the moment increase is smaller, or the decrease larger, with dihedral over the same incidence interval. These are differences of actual moment increments, not departures from preceding fitted trends.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{dihedral_intervals.pdf}
-\caption{Panel-normal force projection and computed lift (top); dihedral differences in moment increments from $F_x$ and $F_z$ (bottom).}\label{fig:dihedral}\end{figure}
+\caption{Dihedral differences in moment increments and their $F_x$ and $F_z$ contributions: $\delta=20\degc$ (left) and $\delta=30\degc$ (right).}\label{fig:dihedral}\end{figure}
 
 At $\delta=20\degc$, the $F_x$ moment term gives a negative contrast in every plotted interval. Over $\alpha=-4\to-2\degc$, it contributes $-0.00362$, partly offset by a $+0.00131$ contribution from $F_z$, leaving $\mathcal I_M=-0.00231$. Across $\alpha=0\to2\degc$, the terms instead reinforce: $-0.01283$ from $F_x$ and $-0.02750$ from $F_z$ give $-0.04033$. The $F_z$ moment term supplies the larger difference during this reference loading change. Over $\alpha=2\to4\degc$, its contribution falls to $-0.00260$, while the contribution from $F_x$ remains $-0.01412$ and dominates the $-0.01672$ total. A single relative weighting of the two moment terms therefore cannot describe the sequence.
 
@@ -353,12 +350,12 @@ Figure~\ref{fig:flow_dihedral} relates this extensive control reversal to the ch
 
 The pressure sections show the accompanying spanwise variation of loading. At $\alpha=0\degc$, the leading-edge suction is weak at $\eta=0.2$, whereas distinct peaks appear at $\eta=0.5$ and $0.8$; their approximate minima are $C_p=-0.52,-1.21,-1.63$. The hinge-region suction also changes with span, with stronger peaks at the middle and outboard cuts. Stronger suction followed by pressure recovery gives the outboard boundary layer a different pressure-gradient history, consistent with the transition and leading-edge reversal developing there first. Spanwise variation of local inflow provides a possible contribution to the suction difference. Taper reduces local chord and Reynolds number, and the constant section shape gives a smaller dimensional leading-edge radius outboard.
 
-Over most of the control chord, the pressure curves change little between $\alpha=-2\degc$ and $\alpha=2\degc$, consistent with the nearly unchanged reversed area. The fixed-surface shear and pressure changes therefore occur while the control remains extensively separated. The component increments in Table~\ref{tab:geometry_budget} and the $F_x/F_z$ terms in Fig.~\ref{fig:dihedral}(c,d) show how this loading produces the computed moment decrease.
+Over most of the control chord, the pressure curves change little between $\alpha=-2\degc$ and $\alpha=2\degc$, consistent with the nearly unchanged reversed area. The fixed-surface shear and pressure changes therefore occur while the control remains extensively separated. The component increments in Table~\ref{tab:geometry_budget} and the $F_x/F_z$ terms in Fig.~\ref{fig:dihedral}(a,b) show how this loading produces the computed moment decrease.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{flow_dihedral.pdf}
 \caption{$\Gamma=45\degc$, $\delta=30\degc$: upper-surface chordwise shear (top), transition-model factor (middle), and pressure sections (bottom) at $\alpha=-2,0,2\degc$.}\label{fig:flow_dihedral}\end{figure}
 
-Dihedral changes the vertical component of the panel loading and gives $F_x$ a vertical moment arm. As incidence changes, the contributions from $F_x$ and $F_z$ reinforce or partly offset one another, producing the changing moment response in Fig.~\ref{fig:dihedral}(c,d).
+As incidence changes, the contributions from $F_x$ and $F_z$ reinforce or partly offset one another, producing the changing moment response in Fig.~\ref{fig:dihedral}(a,b).
 \FloatBarrier
 \label{end:sec:dihedral}
 
@@ -408,7 +405,7 @@ Pressure sections and regional integrations explain why stronger leading-edge su
 
 The measurements establish distinct lift and moment responses across deflection and geometry. RANS reproduces the principal reference directions with a displaced lift interval and substantial coefficient-level bias, while correspondence is weaker for the dihedral and forward-swept cases. The detailed loading findings therefore characterize the computed states.
 
-For matched dihedral, a large part of the absolute lift reduction is the reduced vertical component of panel-normal force, but adjacent lift increments reverse their ordering between the two orientations. The common-axis moment comparison also changes from reinforcement to compensation between the contributions from $F_x$ and $F_z$ across incidence intervals. Both the force magnitudes and their moment arms enter this incidence-dependent response.
+For matched dihedral, adjacent lift increments reverse their ordering between the two orientations. The common-axis moment comparison also changes from reinforcement to compensation between the contributions from $F_x$ and $F_z$ across incidence intervals. Both the force magnitudes and their moment arms enter this incidence-dependent response.
 
 The forward-swept planform gives stronger fixed-surface lift growth, much weaker control loss, positive intermediate-chord growth and an inboard-concentrated aft lift loss over the matched $\alpha=0\to2\degc$ interval. Its aft moment increments consequently lack the reference model's increasing positive outboard progression about the corresponding aerodynamic centers. This connects the different pitching responses to the chordwise and spanwise organization of the computed loading.
 

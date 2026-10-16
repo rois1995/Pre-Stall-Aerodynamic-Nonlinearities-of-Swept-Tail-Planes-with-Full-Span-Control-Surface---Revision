@@ -370,7 +370,7 @@ The wind-tunnel results in Fig.~\ref{fig:comparison_planform} show configuration
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{comparison_planform.pdf}
 \caption{Measured planform contrast (top) and forward-swept WT--RANS comparison (bottom). Grey band marks the measured $\delta=20\degc$ interval.}\label{fig:comparison_planform}\end{figure}
 
-RANS gives a direct $\alpha=0\to2\degc$ lift increase of 0.0935 at $\delta=20\degc$, more than twice the measured value. Its moment increase, 0.0168, is locally close to the measured 0.019, with the different aerodynamic-center positions retained. This weaker lift correspondence limits the use of its local solution to explain the measured feature. The surface field and associated force report agree, although their match to the final convergence-history entry is incomplete for the $\alpha=0\degc$ state (Appendix~\ref{app:sensitivity}).
+RANS gives a direct $\alpha=0\to2\degc$ lift increase of 0.0935 at $\delta=20\degc$, more than twice the measured value. Its moment increase, 0.0168, is locally close to the measured 0.019, with the different aerodynamic-center positions retained. This weaker lift correspondence limits the use of its local solution to explain the measured feature.
 
 Figure~\ref{fig:planform_loading} compares direct $\alpha=0\to2\degc$ increments at $\Gamma=0\degc$, $\delta=20\degc$. Panel (a) shows that the forward-swept fixed surface gains $+0.1014$, compared with $+0.0593$ on configuration I, while its control loses only $-0.0079$ rather than $-0.0351$. The total increase is consequently $+0.0935$ instead of $+0.0242$. The same sign combination of fixed gain and control loss persists, but its balance is substantially different. Each planform uses its own reference area from Table~\ref{tab:geometry}.
 
@@ -420,14 +420,13 @@ Figure~\ref{fig:partition_check} shows the two partitions used to check the regi
 
 \begin{figure}[htbp]\centering\includegraphics[width=.80\textwidth]{partition_check.pdf}
 \caption{Alternative integration partitions: spanwise thirds with fore/aft regions (left), and quarters with forward/intermediate/aft regions (right).}\label{fig:partition_check}\end{figure}
+\FloatBarrier
 
 Moving the spanwise boundary from one third to one quarter changes the inboard aft departure from approximately $-0.0127$ to $-0.00939$, while complete fore/aft sums remain unchanged. Finer chord subdivisions preserve the two negative fixed-chord departures. These checks support the complete loading interpretation while showing that individual bin magnitudes depend on the partition.
 
 Small-threshold and geometric-partition checks are retained in the reproducibility record; the main figures use $C_{f,c}<0$.
 
 \label{anchor:saved_state}At $\Gamma=45\degc$, the stored upper-control reversed-shear fractions decrease between $\alpha=2\degc$ and $\alpha=4\degc$, from about 0.58 to 0.09 at $\delta=20\degc$ and from 0.91 to 0.20 at $\delta=30\degc$. Their physical origin is unresolved, so they are not interpreted as a transition or reattachment sequence. The integrated $\delta=20\degc$ lift irregularity over $\alpha=-6\to-4\degc$ exceeds the retained terminal variations of order $10^{-4}$, but this does not establish a unique steady state.
-
-The surface fields and their associated solver force reports support the adopted load accounting. A match to the last convergence-history entry could not be established for the reference $\delta=30\degc$, $\alpha=-6\degc$ solution or for II at $\delta=20\degc$, $\alpha=-4\degc$ and $\alpha=0\degc$. Their surface integrations agree with their associated force reports. The central reference $\delta=20\degc$ sequence has matched surface, force and terminal-history records. Detailed source and recovery checks are kept with the reproducibility material.
 \label{end:app:sensitivity}
 \FloatBarrier
 \section*{Acknowledgments}\label{anchor:acknowledgments}

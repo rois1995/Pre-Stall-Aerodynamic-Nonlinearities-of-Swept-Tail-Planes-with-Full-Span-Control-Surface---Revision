@@ -23,7 +23,7 @@ Alex Zanotti\footnote{Associate Professor, Department of Aerospace Science and T
 \maketitle
 \begin{abstract}
 \label{anchor:abstract}
-Local loading changes on a swept lifting surface with a deflected plain control can alter lift growth and pitching moment well before maximum lift. MONNALISA wind-tunnel measurements and Reynolds-averaged Navier--Stokes calculations are used to examine how fixed-surface and full-span control loads combine in this response. For the positive-sweep, zero-dihedral model at $\delta=20\degc$, the computed fixed surface continues gaining lift while both surface contributions fall below their preceding incidence trends. Across the tested fitting ranges, the fixed surface accounts for about 63\% of the total lift departure; the control contributes more strongly to the moment departure about the fitted aerodynamic center. Pressure sections and regional integrations connect these different component contributions to stronger leading-edge suction, reduced hinge/aft loading, and longer outboard moment arms. Matched dihedral comparisons resolve incidence-dependent changes in lift growth and the force contributions to pitching moment. The forward-swept planform gives weaker aft losses and a different spanwise distribution of moment contributions. The detailed interpretation concerns the computed flow fields and loads; agreement with measured integrated coefficients is partial. The combined force and moment analysis identifies loading changes that continuing total lift growth alone would conceal.
+Local loading changes on a swept lifting surface with a deflected plain control can alter lift growth and pitching moment well before maximum lift. MONNALISA wind-tunnel measurements and Reynolds-averaged Navier--Stokes calculations are used to examine how fixed-surface and full-span control loads combine in this response. For the positive-sweep, zero-dihedral model with a 20$\degc$ control deflection, the computed fixed surface continues gaining lift while both surface contributions fall below their preceding incidence trends. Across the tested fitting ranges, the fixed surface accounts for about 63\% of the total lift departure; the control contributes more strongly to the moment departure about the fitted aerodynamic center. Pressure sections and regional integrations connect these different component contributions to stronger leading-edge suction, reduced hinge/aft loading, and longer outboard moment arms. Matched dihedral comparisons resolve incidence-dependent changes in lift growth and the force contributions to pitching moment. The forward-swept planform gives weaker aft losses and a different spanwise distribution of moment contributions. The detailed interpretation concerns the computed flow fields and loads; agreement with measured integrated coefficients is partial. The combined force and moment analysis identifies loading changes that continuing total lift growth alone would conceal.
 
 \end{abstract}
 
@@ -88,8 +88,8 @@ The remaining loading question is how changes on the fixed surface and control c
 The test articles are isolated tailplane-inspired wings with full-span, 30\%-chord plain controls; no fuselage, wing wake, or complete-aircraft trim condition is represented. Dihedral is varied on the same planform, while a forward-swept planform provides the contrasting sweep direction. These comparisons define the scope of the analysis without establishing behavior for partial-span controls, other flap chords, or intermediate dihedral angles.
 
 \label{end:sec:intro}
-\section{Experimental, Numerical, and Analysis Framework}\label{sec:methods}
-\subsection{Models and experimental installation}\label{sec:setup}
+\section{Methodology}\label{sec:methods}
+\subsection{Models and wind-tunnel setup}\label{sec:setup}
 Wind-tunnel (WT) measurements establish the integrated lift and pitching-moment response, while RANS surface loads identify how the fixed surface and control contribute to it. To examine dihedral, the reference aft-swept planform (configuration I) is investigated at $\Gamma=0\degc$ and $\Gamma=45\degc$, with its in-plane geometry unchanged. A forward-swept planform (configuration II) provides a contrast in sweep direction and overall planform response. The labels I and II are used in the tables.
 
 Both models use a symmetric section of constant profile along the undeformed semispan $b=1.6$~m, with thickness ratio $t/c=9\%$, where $c$ is the local chord. Each model has a full-span plain control hinged at 70\% chord. The reference surface $S$ is the undeformed semiplanform area, and $\bar c$ denotes its mean aerodynamic chord (MAC). Table~\ref{tab:geometry} gives the geometric parameters and coefficient references. The quarter-chord sweep is $\lambda=+30\degc$ for configuration I and $\lambda=-15\degc$ for configuration II; positive dihedral $\Gamma$ raises the tip. Aspect ratio is defined for the corresponding full planform as $\Lambda=2b^2/S$, and $\tau$ is the tip-to-root chord ratio. Configuration II also differs in taper, aspect ratio, MAC and chord-based Reynolds number, so the sweep contrast is interpreted through the overall planform response.
@@ -144,7 +144,7 @@ The original numerical reference is $O=(0.228571,0,0)$~m, the root quarter-chord
 The fitted abscissae are in Table~\ref{tab:geometry}. Matched dihedral diagnostics use the identical numerical axis $A_I=(0.642000,0,0)$~m in both configurations, denoted $C_M^{A_I}$. Geom.~II uses its own MAC once for every moment contribution; all coefficients use the fixed areas in Table~\ref{tab:geometry}.
 
 \label{end:sec:references}
-\subsection{Numerical methodology}\label{sec:numerics}
+\subsection{Numerical setup}\label{sec:numerics}
 The SU2~\cite{palacios2013stanford} calculations solve compressible ideal-gas RANS with Sutherland viscosity, the Spalart--Allmaras (SA) turbulence model~\cite{spalart1992sa}, and the Bas--Cakmakcioglu (BCM) algebraic transition treatment~\cite{cakmakcioglu2020bcm}. The finite-volume mean-flow discretization uses median-dual vertex cells and Roe fluxes with second-order monotonic upstream-centered schemes for conservation laws (MUSCL) reconstruction~\cite{van1979towards}, Green--Gauss gradients, and a Venkatakrishnan limiter~\cite{venkatakrishnan1993accuracy} with coefficient 0.05. SA convection uses first-order scalar upwinding.
 
 \label{anchor:wall_model}The model surfaces have no-slip, adiabatic boundaries, with freestream conditions at the far field and symmetry at the root. The symmetry plane omits the physical support and boundary-layer development over the raised-floor arrangement. Steady solutions use implicit Euler pseudo-time advancement and flexible generalized minimal residual (FGMRES) linear solves, with adaptive Courant--Friedrichs--Lewy (CFL) number. The production stopping criterion monitors lift and drag over 100 entries with a Cauchy tolerance of approximately $3\times10^{-6}$. Case-specific solution sensitivity is discussed where it affects the interpretation.
@@ -169,7 +169,7 @@ Very fine & 50.11--65.89 & 87.35--109.98 \\
 \caption{Grid-refinement trends of lift, drag, and pitching moment for configuration I at $\delta=35\degc$, two incidences, and two dihedral settings.}\label{fig:mesh}\end{figure}
 
 \label{end:sec:numerics}
-\subsection{Load decomposition and departures from preceding trends}\label{sec:analysis}
+\subsection{Load decomposition and trend departures}\label{sec:analysis}
 A surface can gain lift while contributing to a reduction in total lift growth. To distinguish these effects, the actual increment is the measured or computed coefficient change between two incidences. The expected increment is obtained by linearly extrapolating the empirically fitted preceding slope over the same interval. Their difference, actual minus expected, is the departure. For the fixed surface of configuration I at zero dihedral and $\delta=20\degc$, the actual increase over $\alpha=0\to2\degc$ is $+0.0593$, while continuation of the preceding trend predicts $+0.1285$. The departure is $-0.0692$: the fixed surface still gains lift, but gains 0.0692 less than predicted by that trend. This is a reduction in growth, not an actual lift loss.
 
 The analysis resolves these changes into additive surface loads. Solver surface groups define the fixed surface (upper/lower fixed panels), the control (upper/lower control panels, hinge junction, and blunt trailing edge), and tip. Pressure and viscous contributions are retained on both physical sides with the same global $S$ and $\bar c$. Tip loads remain in every total and closure check. All displayed coefficients use their actual magnitude.
@@ -209,7 +209,7 @@ The signed coefficient $C_{f,c}=\mathbf C_f\cdot\mathbf t_c$ is negative where t
 
 \label{end:sec:analysis}
 \label{end:sec:methods}
-\section{Measured Response and Numerical Correspondence}\label{sec:response}
+\section{Experimental--Numerical Comparison}\label{sec:response}
 The measurements establish whether lift and pitching moment change together as incidence rises at fixed control deflection. Figure~\ref{fig:measured} presents the reference zero-dihedral polars. The comparison includes deflections below and above the pronounced reduction in lift growth so that a change in moment response need not be assigned to the same incidence or deflection as a lift feature.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_measured_baseline.pdf}
@@ -237,7 +237,7 @@ For the reference model at $\delta = 20\degc$, the computed reduction in lift gr
 The reference computation captures the principal lift and pitching-moment trends. The comparisons with different geometries are presented with their loading analysis in Sec.~\ref{sec:geometry_effects}. The following reference analysis investigates the computed loading changes themselves, using the integrated comparison to delimit their experimental interpretation.
 \FloatBarrier
 \label{end:sec:response}
-\section{Joint Numerical Loading Response}\label{sec:joint}
+\section{Load Breakdown of the Reference Model}\label{sec:joint}
 \subsection{Fixed-surface and control-surface loads}\label{sec:budget}
 The reference analysis concerns configuration I at zero dihedral and $\delta=20\degc$. In Fig.~\ref{fig:budget}, the upper panels show the fixed, control and total coefficients. Dashed segments continue each preceding fitted slope, anchored at its actual zero-incidence value, across the shaded $\alpha=0\to2\degc$ interval. The endpoint gap is the departure; the lower signed markers distinguish the actual increment from that departure. The two displays answer different questions: whether a surface gains load, and how its growth differs from the preceding trend.
 
@@ -274,7 +274,7 @@ The aft region loses $-0.0332$, compared with an expected $+0.0063$, giving a de
 
 Panels (b,c) answer a different question from panel (a): they show actual aft-region ($\xi\geq0.7$) lift and moment increments in three spanwise regions, with no preceding-trend subtraction. The aft lift changes are similar, $-0.0103$, $-0.0118$, and $-0.0111$ from inboard to outboard, yet moment changes increase from $+0.00252$ through $+0.00612$ to $+0.00910$. The aft-swept geometry in Fig.~\ref{fig:regions} places outboard aft loading farther downstream of the numerical aerodynamic center. For a local decrease in upward body-normal force, the factor $-(x-x_A)\,dF_z$ gives a positive moment change, larger for a longer downstream arm. The integrated body-normal force decreases in all three aft spanwise regions, supporting this interpretation; their detailed chordwise redistribution also enters the integral. The $F_x$ moment term $z\,dF_x$ remains included and is small here. The longer outboard arms therefore turn comparable aft lift losses into progressively larger positive moment increments.
 \label{end:sec:pressure}
-\subsection{Surface-flow evolution}\label{sec:reversal}
+\subsection{Skin friction and reverse flow}\label{sec:reversal}
 The pressure and load changes can now be compared with the evolution of near-wall flow on the deflected control. Figure~\ref{fig:reversal} reports the proportion of its upper surface on which chordwise wall shear points upstream, using the definition in Sec.~\ref{sec:analysis}. Only the primary $C_{f,c}<0$ measure is plotted. The open diamond marks $\alpha=0\degc$, the start of the interval examined in the surface maps and load analysis.
 
 \begin{figure}[htbp]\centering\includegraphics[width=.90\textwidth]{figures_revision_reversal.pdf}
@@ -295,7 +295,7 @@ The moment result at $\delta=30\degc$ is different: the fixed-surface departure 
 \FloatBarrier
 \label{end:sec:joint}
 \label{end:sec:reversal}
-\section{Dihedral and Planform Dependence}\label{sec:geometry_effects}
+\section{Effects of Dihedral and Sweep}\label{sec:geometry_effects}
 The same component and regional load decomposition is now applied to the dihedral and planform comparisons. Their measured responses and WT--RANS correspondence are presented beside the numerical loading analysis.
 
 Table~\ref{tab:wt_geometry} reports the measured departures and uncertainty sensitivities for these geometry comparisons, using the definitions in Sec.~\ref{sec:analysis}.
@@ -307,7 +307,7 @@ Geom., $\Gamma$, $\delta$ & Coefficient & $\alpha$ interval (deg) & $D$ & $u_{\m
 \tablerows{tables_revision_wt_geometry_rows}
 \bottomrule\end{tabular}\end{table}
 
-\subsection{Dihedral}\label{sec:dihedral}
+\subsection{Effect of dihedral}\label{sec:dihedral}
 Figure~\ref{fig:comparison_dihedral} brings together the wind-tunnel dihedral comparison (upper panels) and the $\Gamma=45\degc$ WT--RANS comparison (lower panels). At $\delta=20\degc$, measured lift growth remains suppressed across $\alpha=-2\to2\degc$, while the moment departure over $\alpha=-2\to0\degc$ is smaller than both uncertainty sensitivities in Table~\ref{tab:wt_geometry}. At $\delta=30\degc$, the selected reduction in lift growth occurs over $\alpha=-2\to0\degc$, but moment decreases earlier, by 0.027 over $\alpha=-4\to-2\degc$. That moment departure is comparable with $u_{\mathrm{ind}}$ and smaller than $u_{\mathrm{L1}}$. The joint response differs from the clearly resolved reference $\delta=20\degc$ lift/moment change.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_comparison_dihedral.pdf}
@@ -357,7 +357,7 @@ Over most of the control chord, the pressure curves change little between $\alph
 \FloatBarrier
 \label{end:sec:dihedral}
 
-\subsection{Aft- and forward-swept planforms}\label{sec:planform}
+\subsection{Effect of sweep direction}\label{sec:planform}
 The second comparison reverses quarter-chord sweep from $\lambda=+30\degc$ to $\lambda=-15\degc$ while retaining the 1.6~m semispan and full-span 30\%-chord control. Sweep is the principal geometric contrast. Area and MAC differ by approximately 4\% and 8\%, respectively, and taper changes from 0.4 to 0.6 (Table~\ref{tab:geometry}); these accompanying differences prevent attributing the response to sweep alone.
 
 The wind-tunnel results in Fig.~\ref{fig:comparison_planform} show configuration II's local reduction in lift growth at $\delta=20\degc$ over $\alpha=0\to2\degc$: lift increases by 0.044, compared with approximately 0.092 over both $\alpha=-2\to0\degc$ and $\alpha=2\to4\degc$. Moment increases by 0.019 over $\alpha=0\to2\degc$. This feature is later than on configuration I, with a smaller moment rise across its own interval. The primary moment departure in Table~\ref{tab:wt_geometry} exceeds both uncertainty sensitivities, although neighboring preceding fitting ranges do not uniformly exceed the primary L1 sensitivity. At $\delta=30\degc$, the reference model's broad early feature is not repeated at the same negative incidences by II.
@@ -404,7 +404,7 @@ The forward-swept planform gives stronger fixed-surface lift growth, much weaker
 Future computations on the finer levels of the established mesh hierarchy are planned to assess the resolution sensitivity of the pre-stall load redistribution, with particular attention to pitching moment and the fixed- and control-surface contributions. The present joint analysis identifies how continued lift growth can coexist with different component lift deficits and pitching-moment contributions.
 \appendix
 \label{end:sec:conclusions}
-\section{Regional and Solution Checks}\label{app:sensitivity}
+\section{Sensitivity Checks}\label{app:sensitivity}
 This appendix checks three choices made in the analysis. The departures depend on the preceding incidence samples that define each fitted trend (Sec.~\ref{sec:analysis}). Their regional values also depend on how the surface is divided (Sec.~\ref{sec:pressure}). The reverse-flow area fraction depends on the sign criterion $C_{f,c}<0$ (Sec.~\ref{sec:analysis}). The checks follow this order, from the fitted trend to the regions and then to the near-wall flow. The appendix ends with two features of the stored solutions that are not interpreted.
 
 The first check concerns the preceding trend. Table~\ref{tab:sensitivity} lists the reference $\delta=20\degc$, $\alpha=0\to2\degc$ lift allocation for three preceding-incidence fitting ranges. The fixed-surface fraction remains 62.4--62.6\%, while the total lift departure varies from approximately $-0.105$ to $-0.137$. The allocation therefore varies much less than the departure amplitude. These rows quantify robustness to the empirical preceding trend; they are neither a confidence interval nor a grid-convergence estimate.

@@ -15,7 +15,9 @@ tick label style={font=\scriptsize},label style={font=\small},
 title style={font=\normalsize}
 ]
 \nextgroupplot[title={(a) Lift},ylabel={$C_L$},ymin=-.95,ymax=1.20,
-legend style={font=\scriptsize,at={(0.01,0.99)},anchor=north west,legend columns=2,draw=black!25,fill=white,fill opacity=.9}]
+legend to name=referenceSharedLegend,
+legend columns=4,
+legend style={font=\scriptsize,draw=none,fill=none,column sep=0.3em}]
 \addplot+[color=blue!85!black,mark=*] table[x=x,y=a0,y error=ea0,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
 \addlegendentry{$\delta=0^\circ$}
 \addplot+[color=orange!90!black,mark=square*] table[x=x,y=a10,y error=ea10,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
@@ -30,4 +32,6 @@ legend style={font=\scriptsize,at={(0.01,0.99)},anchor=north west,legend columns
 \addplot+[color=green!70!black,mark=triangle*] table[x=x,y=b20,y error=eb20,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
 \addplot+[color=magenta!75!black,mark=diamond*] table[x=x,y=b30,y error=eb30,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
 \end{groupplot}
+% Shared, frameless legend for both coefficient panels, positioned below the axes.
+\node[anchor=north,yshift=-0.55cm] at (current bounding box.south) {\pgfplotslegendfromname{referenceSharedLegend}};
 \end{tikzpicture}

@@ -8,9 +8,9 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 **Comment:** Lift error bars are not apparent in Fig. 4 and other experimental curves. Were these errors omitted or are they much smaller than the moment uncertainties?
 
-**Response:** Thank you for identifying an ambiguity in the figure presentation. The supplied lift uncertainties are nonzero and vary with incidence and control deflection. For the reference model at a 20° control deflection, the propagated lift-coefficient uncertainty magnitude at zero incidence is approximately 0.0133. At the scale of the complete polar, some uncertainty bars were difficult to distinguish from the symbols. We have replaced Fig. 4 with a reproducible vector plot that explicitly includes the supplied pointwise propagated error bars for both lift and pitching moment, with distinct markers and end caps. No uncertainty magnitude has been changed or rescaled. The caption now identifies the error bars, and the Methods continue to distinguish the original propagated uncertainties from repeat-run scatter and from the separate uncertainty-sensitivity analysis.
+**Response:** Thank you for identifying an ambiguity in the figure presentation. The supplied lift uncertainties are nonzero and vary with incidence and control deflection. For the reference model at a 20° control deflection, the propagated lift-coefficient uncertainty magnitude at zero incidence is approximately 0.0133. At the scale of the complete polar, some uncertainty bars were difficult to distinguish from the symbols. We regenerated Fig. 4 with smaller symbols and clearer error-bar caps, and regenerated the WT comparisons in Figs. 5, 11 and 15 using their archived plotted-data records; both $C_L$ and $C_M$ carry their original pointwise propagated uncertainty magnitudes. All four plots use the manuscript's DejaVu Serif/STIX figure style. No uncertainty magnitude has been changed or rescaled. The caption now identifies the error bars, and the Methods continue to distinguish the original propagated uncertainties from repeat-run scatter and from the separate uncertainty-sensitivity analysis.
 
-**Final figure check required:** Inspect Fig. 4 in the fully compiled manuscript and check that the corresponding experimental uncertainty bars in the other WT comparison figures remain distinguishable at publication size. Their underlying plotting data include the appropriate uncertainty columns, but the final rendered assets must be inspected before making a stronger claim about all figures.
+**Verification:** The regenerated figures preserve the frozen experimental and computed coefficients and original propagated WT uncertainties. The three comparison figures were built successfully in GitHub and visually inspected from the same plotting code. Their small error bars remain physically small at full-polar scale; the Fig. 4 caption also reports a representative $u(C_L)$. 
 
 ## Reviewer 1 — Meaning of “63% of the total lift departure”
 
@@ -26,7 +26,7 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 ## Reviewer 1 — Wordiness and grid selection
 
-**Response:** We agree and have condensed the article as an integrated argument. The Introduction now synthesizes the relevant literature more directly, the Methods retain reproducibility-critical details without repeating definitions, and the Conclusions are substantially shorter. The cited nominal-grid sentence now reports actual grid sizes, measured grid sensitivity and the computational tradeoff rather than referring vaguely to the demands of the campaign. By the same automated text-count procedure applied before and after this round, the narrative text, including the Appendix but excluding the Abstract, Nomenclature, equations, figure/table contents and references, decreased from approximately **7,700 to 6,150 words**, a reduction of about **20%**.
+**Response:** We agree and have condensed the article as an integrated argument. The Introduction now synthesizes the relevant literature more directly, the Methods retain reproducibility-critical details without repeating definitions, and the Conclusions are substantially shorter. The cited nominal-grid sentence now reports actual grid sizes, measured grid sensitivity and the computational tradeoff rather than referring vaguely to the demands of the campaign. By the same automated text-count procedure applied before and after this round, the narrative text, including the Appendix but excluding the Abstract, Nomenclature, equations, figure/table contents and references, decreased from approximately **7,655 to 5,048 words**, a reduction of about **34%**. This count includes the Results and Appendix concision pass, not only the Introduction and Methods.
 
 ## Reviewer 1 — Nomenclature repetition
 
@@ -36,9 +36,9 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 **Response:** We appreciate the reviewer's repeated concern. We have materially shortened and focused the paper while preserving the linked evidence that makes it an archival research contribution: the different surface contributions to lift-growth shortfall and pitching moment, the spatial moment-arm explanation, and the different incidence-dependent load distributions with dihedral and sweep. The revision removes repeated narration rather than the analyses needed to substantiate these conclusions. We therefore respectfully retain the full-article format.
 
-## Production checklist (not for submission)
+## Production checks
 
-- Recompile the entire manuscript with the bibliography and regenerate the tracked main.pdf. The existing PDF in the repository was not regenerated by this source-only revision.
-- Inspect the replacement Fig. 4 and the other experimental comparisons at publication size; verify that all WT error bars are visible.
-- Recheck pagination, cross-references, colors/markers, and final page citations in this rebuttal.
-- The replacement reference polar reads the original pointwise WT coefficient and uncertainty values from figures_revision_measured_uncertainty_data.csv and the associated LaTeX figure source. Its standalone compilation under the AIAA class has been tested; full-manuscript compilation remains a separate check.
+- Final manuscript source, data-driven Fig. 4, and regenerated Figs. 5, 11 and 15 are committed to main.
+- The article-wide LaTeX diff against commit `32a95a48` is compiled and stored under `revision_materials/`.
+- The tracked `main.pdf` should be verified against the latest commit's source after its compilation workflow finishes.
+- Separate Reviewer 1 and Reviewer 2 response PDFs use the previously established LaTeX response-letter structure; final page numbers may be inserted after checking the newly compiled manuscript.

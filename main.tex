@@ -23,7 +23,7 @@ Alex Zanotti\footnote{Associate Professor, Department of Aerospace Science and T
 \maketitle
 \begin{abstract}
 \label{anchor:abstract}
-On swept wings with deflected trailing-edge controls, pitching moment can change while total lift continues to grow before stall. Wind-tunnel measurements from MONNALISA show where these changes occur. Reynolds-averaged Navier--Stokes (RANS) computations show how the loads on the fixed surface and control contribute. In the reference aft-swept computation, the fixed surface continues to gain lift, but it gains less than predicted by its earlier trend and accounts for about two-thirds of the total shortfall. The control contributes more to the pitching-moment departure from the earlier trend about the computed aerodynamic center. Stronger suction near the leading edge accompanies a loss of lift farther aft, and the spanwise location of the force changes affects their moment arms. The model with dihedral has lower lift but gains more lift over part of the incidence range. The forward-swept model loses less lift over the aft chord, and that loss is concentrated inboard. These comparisons show that pitching moment depends on how much the loads change and how those changes are distributed over the wing.
+On swept wings with deflected trailing-edge controls, pitching moment can change while total lift continues to grow before stall. Wind-tunnel measurements from MONNALISA show where these changes occur. Reynolds-averaged Navier--Stokes (RANS) computations show how the loads on the fixed surface and control contribute. In the reference aft-swept computation, the fixed surface continues to gain lift, but less than predicted by its earlier trend, and accounts for about two-thirds of the total shortfall. The control contributes more to the pitching-moment departure from the earlier trend about the computed aerodynamic center. Stronger suction near the leading edge accompanies a loss of lift farther aft, and changes in the spanwise location of the force affect their moment arms. The model with dihedral has lower lift but gains more lift over part of the incidence range. The forward-swept model loses less lift over the aft chord, and that loss is concentrated inboard. These comparisons show that pitching moment depends on how much the loads change and how those changes are distributed over the wing.
 \end{abstract}
 
 \section*{Nomenclature}
@@ -74,11 +74,11 @@ Plain-flap experiments by Sears and Liddell~\cite{sears1942plain} documented red
 
 On swept wings, spanwise changes in local lift can produce pitching-moment nonlinearity before maximum lift~\cite{harper1964sweptstall}. The onset of local stall need not coincide with the change in integrated moment: the force change and its moment arm vary along the span. This motivates analyzing load redistribution instead of assigning a single global stall event.
 
-Swept-flap experiments reinforce this distinction. Tewes et al.~\cite{tewes2014sweepcontrol} found that large deflection could produce separated flap flow with continued lift growth, while sweep altered the associated lift and pitching-moment response. Melton~\cite{melton2014sweptflap} observed spanwise variation in separated flow on a swept wing with a 30\%-chord flap. These lower-Reynolds-number experiments primarily investigated active separation control and cannot validate the present configurations quantitatively. They establish context for the three-dimensional response but do not resolve the fixed- and control-surface contributions.
+Swept-flap experiments reinforce this distinction. Tewes et al.~\cite{tewes2014sweepcontrol} found that large deflection could produce separated flap flow with continued lift growth, while sweep altered the associated lift and pitching-moment response. Melton~\cite{melton2014sweptflap} observed spanwise variation in separated flow on a swept wing with a 30\%-chord flap. These lower-Reynolds-number experiments primarily investigated active separation control and cannot quantitatively validate the present configurations. They establish context for the three-dimensional response but do not resolve the fixed- and control-surface contributions.
 
 Reduced-order methods provide another perspective: Sivells and Neely~\cite{sivells1947liftingline} incorporated nonlinear sectional lift and moment data into lifting-line analysis, while Goitia and Llamas~\cite{goitia2019vlm} combined viscous sectional data with vortex-lattice and finite-wing corrections. Such formulations can predict nonlinear loading and pitching moment, while the present RANS solutions resolve the surface pressure and wall shear used to examine where those loads change.
 
-The MONNALISA database study~\cite{rausa2026monnalisa} documented pre-stall lift nonlinearity, reverse flow on the control, associated pressure changes, and continued total lift growth. Its DUST computations~\cite{tugnoli2021dust} used nonlinear sectional data, while the potential-based calculations were smoother. The present study builds on those observations but addresses a different question: how the loads on the fixed surface and control combine into lift and pitching-moment changes.
+The MONNALISA database study~\cite{rausa2026monnalisa} documented pre-stall lift nonlinearity, reverse flow on the control, associated pressure changes, and continued total lift growth. Its DUST computations~\cite{tugnoli2021dust} used nonlinear sectional data, while the potential-based calculations were smoother. The present study builds on those observations but addresses a different question: how the loads on the fixed surface and control combine to produce changes in lift and pitching moment.
 
 We first compare the measured lift and pitching moment with the RANS results to see which changes the computations reproduce. We then use pressure and skin friction to interpret the computed loads. Comparing the two dihedral settings and the aft- and forward-swept models shows how changes in local force and moment arm affect the integrated response.
 
@@ -87,7 +87,7 @@ The models are isolated tailplane-inspired wings with full-span, 30\%-chord plai
 \label{end:sec:intro}
 \section{Methodology}\label{sec:methods}
 \subsection{Models and wind-tunnel setup}\label{sec:setup}
-Wind-tunnel (WT) measurements provide integrated lift and moment; RANS surface loads resolve their component contributions. Configuration I is aft swept, with $\Gamma=0\degc$ and $45\degc$; configuration II is forward swept and has a different overall planform.
+Wind-tunnel (WT) measurements provide integrated lift and moment; RANS surface loads resolve their component contributions. Configuration I is aft-swept, with $\Gamma=0\degc$ and $45\degc$; configuration II is forward-swept and has a different overall planform.
 
 Both wings use the same symmetric section with thickness ratio $t/c=9\%$, geometric semispan $b=1.6$~m, and a full-span plain control hinged at 70\% chord. Each model uses the reference semiplanform area $S$ and mean aerodynamic chord $\bar c$ in Table~\ref{tab:geometry} at both dihedral settings. Model I has $+30\degc$ quarter-chord sweep and model II has $-15\degc$. Positive dihedral raises the tip, and the full-wing aspect ratio is $\Lambda=2b^2/S$.
 
@@ -122,7 +122,7 @@ The database~\cite{rausa2026monnalisa} reports freestream turbulence below 0.1\%
 
 \label{end:sec:setup}
 \subsection{Conventions and moment references}\label{sec:references}
-Positive incidence raises the leading edge, positive control deflection moves the trailing edge downward, and positive pitching moment is nose-up. Body axes are downstream ($x$), spanwise ($y$) and upward ($z$). Forces are normalized by $q_\infty S$; lift and drag follow from the body-axis components:
+Positive incidence raises the leading edge, positive control deflection moves the trailing edge downward, and positive pitching moment is nose-up. Body axes are downstream ($x$), spanwise ($y$), and upward ($z$). Forces are normalized by $q_\infty S$; lift and drag follow from the body-axis components:
 \begin{equation}
  C_L=C_{F,z}\cos\alpha-C_{F,x}\sin\alpha,\qquad
  C_D=C_{F,z}\sin\alpha+C_{F,x}\cos\alpha,\qquad
@@ -133,7 +133,7 @@ Pitching moment is normalized by $q_\infty S\bar c$. Body coordinates are expres
 
 \label{anchor:fitted_reference}We obtained separate wind-tunnel and RANS aerodynamic centers by fitting pitching moment and body-normal force at zero control deflection over $|\alpha|\leq10\degc$~\cite{rausa2026monnalisa}. Each center remains fixed as control deflection changes. Measured and computed positions are 0.6430 and 0.6420~m at zero dihedral and 0.6455 and 0.6435~m at $45\degc$ for model I. They differ by about 1 and 2~mm, respectively. For model II, the positions are $-0.0492$ and $-0.00362$~m, a difference of 45.6~mm. The WT--RANS curves use the respective fitted references.
 
-The original numerical reference is $O=(0.228571,0,0)$~m, at the root quarter-chord of model I. The coefficient about a new streamwise position $x_1$ follows from its value at $x_0$ and the body-normal force
+The original numerical reference is $O=(0.228571,0,0)$~m, at the root quarter-chord of model I. The coefficient at a new streamwise position $x_1$ follows from its value at $x_0$ and the body-normal force
 \begin{equation}
  C_M(x_1)=C_M(x_0)+\frac{x_1-x_0}{\bar c}C_{F,z}.
 \label{eq:transport}
@@ -169,7 +169,7 @@ Very fine & 50.11--65.89 & 87.35--109.98 \\
 \subsection{Load decomposition and trend departures}\label{sec:analysis}
 An increment is the change in a coefficient between two sampled angles of attack. A departure is the increment minus the change predicted by extending the fitted trend at earlier angles. For example, from $\alpha=0\degc$ to $2\degc$ at $\delta=20\degc$, the computed fixed-surface lift coefficient rises by 0.0593. Its earlier trend predicts a rise of 0.1285, so the departure is $-0.0692$. The negative sign indicates a smaller increase than predicted by the trend.
 
-We integrate pressure and viscous loads over fixed, control and tip surfaces using consistent reference quantities. The control includes the hinge junction and blunt trailing edge; tip loads remain in total coefficients.
+We integrate pressure and viscous loads over fixed, control, and tip surfaces using consistent reference quantities. The control includes the hinge junction and blunt trailing edge; tip loads remain in total coefficients.
 
 For lift or moment coefficient $Q$, the actual increment and departure of component $j$ are
 \begin{equation}
@@ -177,7 +177,7 @@ For lift or moment coefficient $Q$, the actual increment and departure of compon
  D_{Q,j}=\Delta C_{Q,j}-m_{Q,j}^{\mathrm{pre}}(\alpha_b-\alpha_a).
 \label{eq:departure}
 \end{equation}
-We fit each earlier slope by unweighted least squares. The same incidence samples are used for each component of a given comparison, so component departures sum to the total. For the reference RANS model, the primary fits use $\alpha\in\{-6,-4,-2\}\degc$ at $\delta=20\degc$ and $\{-16,-14,-12\}\degc$ for the early change at $\delta=30\degc$. The wind-tunnel comparisons use earlier samples appropriate to their own intervals. These slopes summarize the data before each interval without making an assumption about the flow state. Using other fitting ranges shows how much the departure depends on that choice.
+We fit each earlier slope by unweighted least squares. The same incidence samples are used for each component of a given comparison, so component departures sum to the total. For the reference RANS model, the primary fits use $\alpha\in\{-6,-4,-2\}\degc$ at $\delta=20\degc$ and $\{-16,-14,-12\}\degc$ for the early change at $\delta=30\degc$. The wind-tunnel comparisons use earlier samples appropriate to their own intervals. These slopes summarize the data before each interval without assuming a flow state. Using other fitting ranges shows how much the departure depends on that choice.
 
 The departure $D=\sum_i w_i C_i$ depends on both the interval endpoints and the samples used to fit the earlier trend. We carry the supplied uncertainty magnitudes from all these samples into two estimates
 \begin{equation}
@@ -202,7 +202,7 @@ Chordwise regions are forward ($\xi<0.4$), intermediate ($0.4\leq\xi<0.7$), and 
 
 \label{anchor:reversal_definition}On each surface face, we project the downstream chord direction $\mathbf d_c$ onto the face and normalize it to obtain a unit tangent. On the control, $\mathbf d_c$ follows the deflected chord. For a face with unit normal $\mathbf n$, the tangent is $\mathbf t_c=[\mathbf d_c-(\mathbf d_c\cdot\mathbf n)\mathbf n]/\|\mathbf d_c-(\mathbf d_c\cdot\mathbf n)\mathbf n\|$. The coefficient $C_{f,c}=\mathbf C_f\cdot\mathbf t_c$ is the wall shear along that tangent.
 
-The reverse-flow area fraction $f_{\mathrm{rev}}$ is the fraction of the upper control surface ($\xi>0.7$, excluding end faces) where $C_{f,c}<0$. A value of 0.5 means that the chordwise wall shear points upstream over half that surface. The sign identifies the chordwise direction of flow near the wall. Identifying the full three-dimensional separation pattern requires more information about the surface flow~\cite{tobak1982topology,mccormack1949sweptforward}.
+The reverse-flow area fraction $f_{\mathrm{rev}}$ is the fraction of the upper control surface ($\xi>0.7$, excluding end faces) where $C_{f,c}<0$. A value of 0.5 means that the chordwise wall shear points upstream over half of that surface. The sign identifies the chordwise direction of flow near the wall. Identifying the full three-dimensional separation pattern requires more information about the surface flow~\cite{tobak1982topology,mccormack1949sweptforward}.
 
 \label{end:sec:analysis}
 \label{end:sec:methods}
@@ -229,7 +229,7 @@ At $\delta=10\degc$, the measured moment coefficient falls by 0.0038 from $\alph
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_comparison.pdf}
 \caption{Reference WT--RANS lift and moment. WT bars show propagated pointwise uncertainties; plain and hatched grey bands mark measured intervals at $\delta=20\degc$ and $30\degc$.}\label{fig:comparison}\end{figure}
 
-For the reference model at $\delta=20\degc$, lift growth slows in RANS over $\alpha=0\to2\degc$, one sampled interval later than in the tunnel. At zero incidence, the computed lift coefficient is about 0.842 and the measured value is 0.556, with a measurement uncertainty of 0.013. Both show slower lift growth and a less negative pitching moment, although RANS overpredicts the lift level. At $\delta=30\degc$, RANS predicts a sharper change in lift growth than measured, and the moment departure depends more strongly on the fitting range.
+For the reference model at $\delta=20\degc$, lift growth slows in RANS over $\alpha=0\to2\degc$, one sampled interval later than in the tunnel. At zero incidence, the computed lift coefficient is about 0.842, and the measured value is 0.556, with a measurement uncertainty of 0.013. Both show slower lift growth and a less negative pitching moment, although RANS overpredicts the lift level. At $\delta=30\degc$, RANS predicts a sharper change in lift growth than measured, and the moment departure depends more strongly on the fitting range.
 
 The comparison sets the scope of the load analysis. We use pressure and wall shear to explain the computed reference response. The tunnel measurements establish the changes in total lift and moment, while the surface distributions come from RANS.
 \FloatBarrier
@@ -241,7 +241,7 @@ For the reference model at zero dihedral and $\delta=20\degc$, the dashed lines 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_baseline_budget.pdf}
 \caption{Fixed-surface, control-surface, and total numerical loading, with actual increments and departures from preceding incidence trends.}\label{fig:budget}\end{figure}
 
-Over $\alpha=0\to2\degc$, the fixed-surface lift coefficient rises by 0.0593 and the control contribution falls by 0.0351. The total still rises by 0.0242. Both components fall below their earlier trends. Their departures are $-0.0692$ on the fixed surface and $-0.0414$ on the control, giving a total of $-0.1106$ (Table~\ref{tab:budget}). The fixed surface therefore accounts for about 63\% of the shortfall in lift growth. Its share stays between 62.4\% and 62.6\% across the three fits in Appendix~\ref{app:sensitivity}, even though the total departure changes.
+Over $\alpha=0\to2\degc$, the fixed-surface lift coefficient rises by 0.0593, and the control contribution falls by 0.0351. The total still rises by 0.0242. Both components fall below their earlier trends. Their departures are $-0.0692$ on the fixed surface and $-0.0414$ on the control, giving a total of $-0.1106$ (Table~\ref{tab:budget}). The fixed surface therefore accounts for about 63\% of the shortfall in lift growth. Its share stays between 62.4\% and 62.6\% across the three fits in Appendix~\ref{app:sensitivity}, even though the total departure changes.
 
 \begin{table}[htbp]\centering\small
 \caption{Reference zero-dihedral lift and aerodynamic-center moment departures from preceding incidence trends; total includes tip loads.}\label{tab:budget}
@@ -253,19 +253,19 @@ Geom., $\delta$, $\alpha$ interval & Departure & Fixed & Control & Total \\\midr
 About the computed aerodynamic center, both surfaces contribute to a more positive moment increment than their earlier trends predict. The control contributes $+0.0226$ to that departure and the fixed surface $+0.0107$ (Table~\ref{tab:budget}). Which contribution is larger depends on the reference axis. About the original numerical origin, the fixed-surface and control departures are still positive, at $+0.0529$ and $+0.0474$, respectively. The totals include the tip, whose contribution is below 0.09\% of the magnitude of each total departure in Table~\ref{tab:budget}. The pressure and load distributions below show how the fixed surface and control produce their different lift and moment contributions.
 \label{end:sec:budget}
 \subsection{Pressure distribution and pitching moment}\label{sec:pressure}
-Figure~\ref{fig:cp} compares the pressure distributions on both sides of the reference wing at three span stations for $\alpha=0\degc$ and $2\degc$. Leading-edge suction strengthens and the upper-surface pressure minimum near the hinge becomes less negative. Pressure recovery here is the rise in pressure downstream of that minimum. A stronger suction peak can coexist with a loss of lift elsewhere on the chord, so we integrate the pressure and shear over each chordwise region.
+Figure~\ref{fig:cp} compares the pressure distributions on both sides of the reference wing at three span stations for $\alpha=0\degc$ and $2\degc$. Leading-edge suction strengthens, and the upper-surface pressure minimum near the hinge becomes less negative. Pressure recovery here is the rise in pressure downstream of that minimum. A stronger suction peak can coexist with a loss of lift elsewhere on the chord, so we integrate the pressure and shear over each chordwise region.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_pressure_sections.pdf}
 \caption{Chordwise pressure distributions at three span locations across the reference pre-stall loading change.}\label{fig:cp}\end{figure}
 
 Summed over the semispan, the forward region ($\xi<0.4$) gains 0.0671 in lift coefficient. The earlier trend predicts a gain of 0.1027, giving a departure of $-0.0357$ using the unrounded values (Fig.~\ref{fig:spatial}a). In the intermediate region, the lift coefficient falls by 0.0097, compared with a predicted rise of 0.0257. Its departure is $-0.0354$.
 
-The aft-region lift coefficient falls by 0.0332 where the previous trend predicts a gain of 0.0063, giving a departure of $-0.0396$. Pressure forces account for nearly all of the lift-growth shortfall. The totals include the viscous contribution.
+The aft-region lift coefficient falls by 0.0332, where the previous trend predicts a gain of 0.0063, giving a departure of $-0.0396$. Pressure forces account for nearly all of the lift-growth shortfall. The totals include the viscous contribution.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_spatial_changes.pdf}
 \caption{Chordwise and spanwise contributions to reference lift and pitching-moment changes over the selected pre-stall interval.}\label{fig:spatial}\end{figure}
 
-The spanwise breakdown uses the actual changes between the two angles. Across the inboard, middle and outboard thirds of the aft region, lift-coefficient changes are similar ($-0.0103$, $-0.0118$, and $-0.0111$), while the positive moment increments grow toward the tip ($+0.00252$, $+0.00612$, and $+0.00910$, Fig.~\ref{fig:spatial}b,c). The aft-swept planform places the outboard loads farther behind the computed aerodynamic center. A reduction in upward force behind that axis produces a nose-up moment change, and the same force reduction produces a larger change farther behind the axis. This is the $-(x-x_A)dF_z$ contribution in Eq.~\ref{eq:moment}. The axial-force term $z\,dF_x$ is small in this case.
+The spanwise breakdown uses the actual changes between the two angles. Across the inboard, middle, and outboard thirds of the aft region, lift-coefficient changes are similar ($-0.0103$, $-0.0118$, and $-0.0111$), while the positive moment increments grow toward the tip ($+0.00252$, $+0.00612$, and $+0.00910$, Fig.~\ref{fig:spatial}b,c). The aft-swept planform places the outboard loads farther behind the computed aerodynamic center. A reduction in upward force behind that axis produces a nose-up moment change, and the same force reduction produces a larger change farther behind the axis. This is the $-(x-x_A)dF_z$ contribution in Eq.~\ref{eq:moment}. The axial-force term $z\,dF_x$ is small in this case.
 \label{end:sec:pressure}
 \subsection{Skin friction and reverse flow}\label{sec:reversal}
 Figure~\ref{fig:reversal} tracks the upper-control area fraction with upstream-directed chordwise shear; the open diamond marks the $\alpha=0\degc$ reference state.
@@ -275,16 +275,16 @@ Figure~\ref{fig:reversal} tracks the upper-control area fraction with upstream-d
 
 At $\delta=20\degc$, this fraction rises from 0.146 to 0.485 across $\alpha=0\to2\degc$, coinciding with the computed lift-growth shortfall and positive moment change. Figure~\ref{fig:transition} shows that the reversed-shear region also changes location.
 
-At zero incidence, the reverse flow near the wall lies chiefly near the hinge. At $\alpha=2\degc$ it is concentrated toward the trailing edge, then extends upstream by $\alpha=4\degc$ (Fig.~\ref{fig:transition}). As the region shifts toward the trailing edge, suction near the hinge weakens and the aft region loses lift.
+At zero incidence, the reverse flow near the wall lies chiefly near the hinge. At $\alpha=2\degc$ it is concentrated toward the trailing edge, then extends upstream by $\alpha=4\degc$ (Fig.~\ref{fig:transition}). As the region shifts toward the trailing edge, suction near the hinge weakens, and the aft region loses lift.
 
 By $\alpha=4\degc$, about 59\% of the upper control surface has upstream-directed chordwise shear. Even as this area grows, the model gains more lift from $\alpha=2\degc$ to $4\degc$ (0.0968 in lift coefficient) than from $0\degc$ to $2\degc$ (0.0242).
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_surface_sequence.pdf}
 \caption{Reference upper-surface chordwise skin friction across the loading changes at $\delta=20\degc$ (top) and $\delta=30\degc$ (bottom) deflection.}\label{fig:transition}\end{figure}
 
-At $\delta=30\degc$, the computed loading change occurs earlier, from $\alpha=-10\degc$ to $-8\degc$. The fixed-surface lift coefficient rises by 0.0406 and the control contribution falls by 0.0436, so the total falls by 0.0030. The area fraction with reverse flow rises from 0.622 to 0.935 over this interval (lower row of Fig.~\ref{fig:transition}).
+At $\delta=30\degc$, the computed loading change occurs earlier, from $\alpha=-10\degc$ to $-8\degc$. The fixed-surface lift coefficient rises by 0.0406, and the control contribution falls by 0.0436, so the total falls by 0.0030. The area fraction with reverse flow rises from 0.622 to 0.935 over this interval (lower row of Fig.~\ref{fig:transition}).
 
-The two surfaces also make opposing contributions to the 30-degree moment departure. The fixed-surface departure is negative and the control departure positive. Their total ranges from $-0.0262$ to $+0.0076$ across the fitting ranges tested. The lift and moment results at the two deflections show why the area with reverse flow needs to be read alongside the pressure and load distributions.
+The two surfaces also contribute in opposite directions to the 30-degree moment departure. The fixed-surface departure is negative and the control departure positive. Their total ranges from $-0.0262$ to $+0.0076$ across the tested fitting ranges. The lift and moment results at the two deflections show why the area with reverse flow needs to be read alongside the pressure and load distributions.
 \FloatBarrier
 \label{end:sec:joint}
 \label{end:sec:reversal}
@@ -306,7 +306,7 @@ Figure~\ref{fig:comparison_dihedral} compares the measurements at the two dihedr
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_comparison_dihedral.pdf}
 \caption{Dihedral WT and WT--RANS comparisons. Bars show propagated WT uncertainty. Shading marks the intervals assessed in Table~\ref{tab:wt_geometry}. The lift interval is shared by both deflections. Moment shading is plain for $20\degc$ and hatched for $30\degc$.}\label{fig:comparison_dihedral}\end{figure}
 
-Agreement is weaker for the dihedral cases. At $\delta=20\degc$, RANS predicts a lift decrease from $\alpha=-6\degc$ to $-4\degc$ that is absent in the measurements. In the computation the area of reverse flow on the control increases markedly over those two degrees. Near the measured reduction in lift growth, the computed lift coefficient rises by 0.0763 over $\alpha=-2\to0\degc$ and by 0.0444 over the next two degrees. The measured moment change near zero incidence is small relative to uncertainty, while RANS gives a different moment response. At $\delta=30\degc$, the computed moment falls one sampled interval later than measured. We use the calculations below to distinguish how dihedral changes the lift increments and which forces contribute to the computed pitching moment.
+Agreement is weaker for the dihedral cases. At $\delta=20\degc$, RANS predicts a lift decrease from $\alpha=-6\degc$ to $-4\degc$ that is absent in the measurements. In the computation, the area of reverse flow on the control increases markedly over those two degrees. Near the measured reduction in lift growth, the computed lift coefficient rises by 0.0763 over $\alpha=-2\to0\degc$ and by 0.0444 over the next two degrees. The measured moment change near zero incidence is small relative to uncertainty, while RANS gives a different moment response. At $\delta=30\degc$, the computed moment falls one sampled interval later than measured. We use the calculations below to distinguish how dihedral changes the lift increments and which forces contribute to the computed pitching moment.
 
 At zero incidence and $\delta=20\degc$, the computed lift coefficient is 0.301 lower with $45\degc$ dihedral. Tilting the reference panel-normal force by $45\degc$ at fixed magnitude and projecting it onto the common vertical lift direction accounts algebraically for about 0.247 of this difference.
 
@@ -334,12 +334,12 @@ At $\delta=20\degc$, the $F_x$ and $F_z$ contributions to the common-axis differ
 
 At $\delta=30\degc$, the two terms also reinforce over $\alpha=-2\to0\degc$, giving a common-axis moment-increment difference of $-0.01836$.
 
-Over those same two degrees, the moment coefficient on the $45\degc$ model falls by 0.0148 about its own computed aerodynamic center. The fixed surface contributes $-0.0112$ of that change (Table~\ref{tab:geometry_budget}). The area fraction with reverse flow on the control changes only from 0.889 to 0.911 and is 0.912 at $\alpha=2\degc$ (Fig.~\ref{fig:reversal_geometry}). Since the fixed surface supplies most of the moment change while the area of reverse flow on the control changes little, we examine the fixed-surface pressure and wall shear over the same sequence.
+Over those same two degrees, the moment coefficient on the $45\degc$ model falls by 0.0148 about its own computed aerodynamic center. The fixed surface contributes $-0.0112$ of that change (Table~\ref{tab:geometry_budget}). The area fraction with reverse flow on the control changes only from 0.889 to 0.911 and is 0.912 at $\alpha=2\degc$ (Fig.~\ref{fig:reversal_geometry}). Since the fixed surface supplies most of the moment change while the reverse-flow area on the control changes little, we examine the fixed-surface pressure and wall shear over the same sequence.
 
 \begin{figure}[htbp]\centering\includegraphics[width=.90\textwidth]{figures_revision_reversal_geometry.pdf}
 \caption{Reverse-flow area fractions on the upper control surface for $\Gamma=45\degc$ at $\delta=20\degc$ and $\delta=30\degc$.}\label{fig:reversal_geometry}\end{figure}
 
-From $\alpha=-2\degc$ to $0\degc$, chordwise skin friction increases over the fixed surface from midspan toward the tip (Fig.~\ref{fig:flow_dihedral}). At $\alpha=2\degc$, upstream-directed shear appears near the outboard leading edge. The chordwise cut shows that shear points downstream again farther aft and rises sharply. Together with the localized suction peaks, this pattern is consistent with local separation followed by reattachment. The shear rise suggests a change in the boundary layer, although the surface data leave the location of transition uncertain. Toppings and Yarusevych~\cite{toppings2021wingtip} observed spanwise changes in separation bubbles on an unswept wing at a different Reynolds number.
+From $\alpha=-2\degc$ to $0\degc$, chordwise skin friction increases over the fixed surface from midspan toward the tip (Fig.~\ref{fig:flow_dihedral}). At $\alpha=2\degc$, upstream-directed shear appears near the outboard leading edge. The chordwise cut shows that shear points downstream again farther aft and rises sharply. Together with the localized suction peaks, this pattern is consistent with local separation followed by reattachment. The shear rise suggests a change in the boundary layer, although the surface data leave the transition location uncertain. Toppings and Yarusevych~\cite{toppings2021wingtip} observed spanwise changes in separation bubbles on an unswept wing at a different Reynolds number.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_flow_dihedral.pdf}
 \caption{$\Gamma=45\degc$, $\delta=30\degc$: upper-surface shear maps (top), upper-surface shear cuts (middle), and pressure sections (bottom) at $\alpha=-2,0,2\degc$.}\label{fig:flow_dihedral}\end{figure}
@@ -353,12 +353,12 @@ The control pressure changes little over most of its chord from $\alpha=-2\degc$
 \subsection{Aft- and Forward-Swept Planforms}\label{sec:planform}
 Configuration II has $-15\degc$ quarter-chord sweep versus $+30\degc$ for I, with the same semispan and full-span control. Alongside the sweep reversal, taper, chord, and area differ between these complete planforms (Table~\ref{tab:geometry}).
 
-At $\delta=20\degc$, the wind-tunnel lift coefficient of model II rises by 0.044 from $\alpha=0\degc$ to $2\degc$, compared with about 0.092 over each neighboring two-degree interval. The moment coefficient rises by 0.019 over $0\degc$ to $2\degc$ (Fig.~\ref{fig:comparison_planform}). The lift change occurs later than on model I and the accompanying moment rise is smaller. For the primary fit, the magnitude of the moment departure exceeds both uncertainty sensitivities in Table~\ref{tab:wt_geometry}. For some other fits, it falls within the primary absolute-weight bound. At $\delta=30\degc$, model II does not show the broad reduction in lift growth at the same negative incidences as model I.
+At $\delta=20\degc$, the wind-tunnel lift coefficient of model II rises by 0.044 from $\alpha=0\degc$ to $2\degc$, compared with about 0.092 over each neighboring two-degree interval. The moment coefficient rises by 0.019 over $0\degc$ to $2\degc$ (Fig.~\ref{fig:comparison_planform}). The lift change occurs later than on model I and the accompanying moment rise is smaller. For the primary fit, the moment departure exceeds both uncertainty sensitivities in Table~\ref{tab:wt_geometry}. For some other fits, it falls within the primary absolute-weight bound. At $\delta=30\degc$, model II does not show the broad reduction in lift growth at the same negative incidences as model I.
 
 \begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_comparison_planform.pdf}
 \caption{Wind-tunnel planform and forward-swept WT--RANS comparisons. WT bars show propagated pointwise uncertainties; grey bands mark the measured $\delta=20\degc$ interval.}\label{fig:comparison_planform}\end{figure}
 
-For the same $0\degc$ to $2\degc$ interval at $\delta=20\degc$, RANS predicts a lift increase of 0.0935, compared with 0.044 measured. About the experimental aerodynamic center, the moment coefficient increases by 0.0099 in RANS and 0.019 in the tunnel. The computed increase is 0.0168 about the RANS aerodynamic center. We obtain the common-reference value using Eq.~\ref{eq:transport} and $\Delta C_{F,z}=0.0952$.
+For the same $0\degc$ to $2\degc$ interval at $\delta=20\degc$, RANS predicts a lift increase of 0.0935, compared with the measured 0.044. About the experimental aerodynamic center, the moment coefficient increases by 0.0099 in RANS and 0.019 in the tunnel. The computed increase is 0.0168 about the RANS aerodynamic center. We obtain the common-reference value using Eq.~\ref{eq:transport} and $\Delta C_{F,z}=0.0952$.
 
 The computed load distributions explain why model II gains more lift but has a smaller nose-up moment increase than model I over $\alpha=0\to2\degc$ at $\delta=20\degc$ (Fig.~\ref{fig:planform_loading}). Model II gains more lift on the fixed surface and loses less on the control, giving a total lift increase of 0.0935 versus 0.0242. The intermediate region gains lift on model II and loses lift on model I. Model II also loses much less lift over the aft region. Each model uses its own reference area and chord, and the moments in this comparison are about the respective computed aerodynamic centers.
 
@@ -388,11 +388,11 @@ In that interval, suction strengthens near the leading edge while lift falls ove
 
 At $20\degc$ control deflection, the model with $45\degc$ dihedral gains less lift than the zero-dihedral model from $-2\degc$ to $0\degc$ angle of attack, then gains more from $0\degc$ to $2\degc$. About a common axis, the axial and upward forces contribute to the difference in moment changes between the two models. Those contributions partly cancel in some intervals and reinforce in others. From $0\degc$ to $2\degc$ angle of attack, the forward-swept model at zero dihedral gains more lift than the aft-swept model at the same setting, but its nose-up moment increment is smaller. It loses less lift over the aft chord, and that lift loss and the associated nose-up moment change are concentrated inboard.
 
-In the cases examined here, a rising total lift curve can conceal local lift losses that change the pitching moment. Finer grids would help assess the sensitivity of the computed moment contributions to mesh resolution.
+In the cases examined here, a rising total lift curve can conceal local lift losses that change the pitching moment. Finer grids would help assess how sensitive the computed moment contributions are to mesh resolution.
 \appendix
 \label{end:sec:conclusions}
 \section{Sensitivity Checks}\label{app:sensitivity}
-We check how the earlier fit, the choice of surface regions and the wall-shear threshold affect the reported quantities.
+We check how the earlier fit, the choice of surface regions, and the wall-shear threshold affect the reported quantities.
 
 Across the three earlier fits in Table~\ref{tab:sensitivity}, the fixed-surface share of the reference lift-growth shortfall stays between 62.4\% and 62.6\%. The total lift departure varies from $-0.105$ to $-0.137$. The range therefore describes sensitivity to the fitted trend.
 

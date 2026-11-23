@@ -31,12 +31,16 @@ jobs:
           latexmk -pdf -bibtex -interaction=nonstopmode -file-line-error -halt-on-error -output-directory=. revision_materials/SECOND_ROUND_LaTeX_DIFF.tex
           test -s SECOND_ROUND_LaTeX_DIFF.pdf
           mv SECOND_ROUND_LaTeX_DIFF.pdf revision_materials/SECOND_ROUND_LaTeX_DIFF.pdf
+      - name: Compile current main manuscript with final figures
+        run: |
+          latexmk -pdf -bibtex -interaction=nonstopmode -file-line-error -halt-on-error main.tex
+          test -s main.pdf
       - name: Commit compiled diff artifacts
         run: |
-          git add revision_materials/SECOND_ROUND_LaTeX_DIFF.tex revision_materials/SECOND_ROUND_LaTeX_DIFF.pdf
+          git add revision_materials/SECOND_ROUND_LaTeX_DIFF.tex revision_materials/SECOND_ROUND_LaTeX_DIFF.pdf main.pdf
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Add compiled LaTeX diff for second review round'
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Compile current manuscript and refresh second-round LaTeX diff'
             git push
           fi

@@ -1,0 +1,33 @@
+% Propagated WT uncertainties: original coefficient magnitudes from Phase-2B plotted_data.csv.
+% Each colored point has its own supplied experimental uncertainty in both panels.
+% Directly reproducible; no smoothing, interpolation, or assumed statistics.
+\begin{tikzpicture}
+\begin{groupplot}[
+group style={group size=2 by 1,horizontal sep=1.55cm},
+width=0.48\textwidth,height=0.32\textwidth,
+xmin=-26,xmax=26,xtick={-20,-10,0,10,20},
+xlabel={$\alpha$ (deg)},grid=major,grid style={black!10},
+every axis plot/.append style={thick,mark size=1.65pt},
+error bars/y dir=both,error bars/y explicit,
+error bars/error bar style={line width=.7pt},
+error bars/error mark options={mark size=1.8pt,line width=.7pt},
+tick label style={font=\scriptsize},label style={font=\small},
+title style={font=\normalsize}
+]
+\nextgroupplot[title={(a) Lift},ylabel={$C_L$},ymin=-.95,ymax=1.20,
+legend style={font=\scriptsize,at={(0.01,0.99)},anchor=north west,legend columns=2,draw=black!25,fill=white,fill opacity=.9}]
+\addplot+[color=blue!85!black,mark=*] table[x=x,y=a0,y error=ea0,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addlegendentry{$\delta=0^\circ$}
+\addplot+[color=orange!90!black,mark=square*] table[x=x,y=a10,y error=ea10,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addlegendentry{$\delta=10^\circ$}
+\addplot+[color=green!70!black,mark=triangle*] table[x=x,y=a20,y error=ea20,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addlegendentry{$\delta=20^\circ$}
+\addplot+[color=magenta!75!black,mark=diamond*] table[x=x,y=a30,y error=ea30,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addlegendentry{$\delta=30^\circ$}
+\nextgroupplot[title={(b) Pitching moment},ylabel={$C_M^A$},ymin=-.23,ymax=.065]
+\addplot+[color=blue!85!black,mark=*] table[x=x,y=b0,y error=eb0,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addplot+[color=orange!90!black,mark=square*] table[x=x,y=b10,y error=eb10,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addplot+[color=green!70!black,mark=triangle*] table[x=x,y=b20,y error=eb20,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\addplot+[color=magenta!75!black,mark=diamond*] table[x=x,y=b30,y error=eb30,col sep=comma]{figures_revision_measured_uncertainty_data.csv};
+\end{groupplot}
+\end{tikzpicture}

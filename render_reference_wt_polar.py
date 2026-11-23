@@ -41,9 +41,9 @@ for ax, group in zip(axes, ["a", "b"]):
     for delta, color, marker in zip([0, 10, 20, 30], colors, markers):
         ax.errorbar(df["x"], df[f"{group}{delta}"],
                     yerr=df[f"e{group}{delta}"],
-                    color=color, marker=marker, markersize=3.6,
-                    markeredgewidth=.5, linewidth=1.05,
-                    elinewidth=.8, capsize=2, capthick=.8, zorder=3)
+                    color=color, marker=marker, markersize=2.35,
+                    markeredgewidth=.35, linewidth=1.05,
+                    elinewidth=1.05, capsize=2.4, capthick=1.0, zorder=3)
     ax.set_xlim(-26, 26)
     ax.set_xticks([-20, -10, 0, 10, 20])
     ax.set_xlabel(r"$\alpha$ (deg)")

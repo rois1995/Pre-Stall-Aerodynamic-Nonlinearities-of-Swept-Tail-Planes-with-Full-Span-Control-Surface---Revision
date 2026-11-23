@@ -1,9 +1,6 @@
 \documentclass[journal]{new-aiaa}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx,amsmath,longtable,tabularx,booktabs,placeins}
-\usepackage{pgfplots}
-\usepgfplotslibrary{groupplots}
-\pgfplotsset{compat=1.18}
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.8}
 \renewcommand{\textfraction}{0.08}
@@ -215,7 +212,7 @@ The fraction $f_{\mathrm{rev}}$ is the upper-control area fraction ($\xi>0.7$, e
 \section{Experimental--Numerical Comparison}\label{sec:response}
 The measurements establish whether lift and pitching moment change together as incidence rises at fixed control deflection. Figure~\ref{fig:measured} presents the reference zero-dihedral polars. The comparison includes deflections below and above the pronounced reduction in lift growth so that a change in moment response need not be assigned to the same incidence or deflection as a lift feature.
 
-\begin{figure}[htbp]\centering\input{figures_revision_measured_with_uncertainties.tex}
+\begin{figure}[htbp]\centering\includegraphics[width=\textwidth]{figures_revision_measured_baseline.pdf}
 \caption{Reference wind-tunnel lift and pitching moment at zero dihedral; bars show propagated pointwise uncertainty for both coefficients.}\label{fig:measured}\end{figure}
 
 \label{anchor:uncertainty}For configuration I at $\delta=20\degc$, the lift-coefficient increase over $\alpha=-2\to0\degc$ is approximately 0.020, compared with 0.089 over the preceding $\alpha=-4\to-2\degc$ interval. This is a roughly 78\% reduction in the interval's lift increase, while lift itself continues rising. Moment about the corresponding experimental aerodynamic center increases by $+0.036$, becoming less negative. Both departures in Table~\ref{tab:wt}, calculated against $\alpha\in\{-6,-4,-2\}\degc$, exceed the supplied-uncertainty sensitivities. The pointwise lift and moment uncertainty magnitudes are approximately 0.013 and 0.0046--0.0047, respectively; the local incidence spacing is $\Delta\alpha=2\degc$.

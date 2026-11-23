@@ -1,0 +1,40 @@
+name: Build second-round manuscript LaTeX diff
+on:
+  push:
+    paths:
+      - '.github/workflows/build_second_round_texdiff.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build-latexdiff:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out revision history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Install LaTeX and latexdiff
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq latexmk latexdiff texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-science texlive-bibtex-extra
+      - name: Generate second-round diff
+        run: |
+          set -euo pipefail
+          mkdir -p revision_materials
+          git show 32a95a48c6a7a380af7dfc04ee56e8ba678f3bc6:main.tex > /tmp/manuscript_before_round2.tex
+          latexdiff --encoding=utf8 --type=UNDERLINE --math-markup=1 /tmp/manuscript_before_round2.tex main.tex > revision_materials/SECOND_ROUND_LaTeX_DIFF.tex
+          # Main document references figure/table assets relative to its CWD.
+          latexmk -pdf -bibtex -interaction=nonstopmode -file-line-error -halt-on-error -output-directory=. revision_materials/SECOND_ROUND_LaTeX_DIFF.tex
+          test -s SECOND_ROUND_LaTeX_DIFF.pdf
+          mv SECOND_ROUND_LaTeX_DIFF.pdf revision_materials/SECOND_ROUND_LaTeX_DIFF.pdf
+      - name: Commit compiled diff artifacts
+        run: |
+          git add revision_materials/SECOND_ROUND_LaTeX_DIFF.tex revision_materials/SECOND_ROUND_LaTeX_DIFF.pdf
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Add compiled LaTeX diff for second review round'
+            git push
+          fi

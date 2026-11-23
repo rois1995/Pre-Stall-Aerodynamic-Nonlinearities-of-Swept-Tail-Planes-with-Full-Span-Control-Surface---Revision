@@ -97,7 +97,10 @@ for geometry,panels,color,out in [
             rans(bot,other,d,col);curve(bot,other,"WT_"+str(d),col,d,wt=True)
         for target in [top,bot]:
             if geometry=="Dihedral":
-                mark(target,-2,2);mark(target,-4,-2,hatch=True)
+                # Table 5 assesses the same lift interval at both deflections.
+                mark(target,-2,0)
+                if q=="CM":
+                    mark(target,-4,-2,hatch=True)
             else:mark(target,0,2)
     ax[0,0].set_title("Wind-tunnel "+geometry.lower()+" comparison",fontsize=10)
     ax[1,0].set_title(("Positive-dihedral" if geometry=="Dihedral" else "Forward-swept")+" WT--RANS",fontsize=10)

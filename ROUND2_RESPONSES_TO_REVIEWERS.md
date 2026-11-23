@@ -22,7 +22,7 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 ## Reviewer 1 — Abstract specificity
 
-**Response:** We have rewritten the Abstract to communicate concrete findings rather than summarize analyses generically. It specifies the 0.111 lift-growth shortfall, the distinct fixed-surface and control-surface contributions, and the result that the computed 45°-dihedral model has a larger lift increase over the identified 0°–2° interval despite a lower absolute lift. It also identifies the more inboard-concentrated aft-loading changes on the forward-swept planform. The final sentence acknowledges the limited experimental–numerical agreement.
+**Response:** We have rewritten the Abstract to state the principal physical findings directly, without relying on undefined symbols, exact incidence intervals or an inventory of numerical values. It now explains that the fixed surface continues gaining lift while accounting for roughly two-thirds of the shortfall relative to the preceding lift-growth trend; the control contributes more strongly to the pitching-moment departure. It also specifies the incidence-dependent dihedral effect and the inboard-concentrated aft-loading changes of the forward-swept planform, while acknowledging the limits of numerical–experimental agreement. The detailed quantitative evidence remains in the Results.
 
 ## Reviewer 1 — Wordiness and grid selection
 

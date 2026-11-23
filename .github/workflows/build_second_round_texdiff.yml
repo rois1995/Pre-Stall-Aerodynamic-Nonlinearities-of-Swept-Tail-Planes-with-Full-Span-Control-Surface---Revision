@@ -18,7 +18,9 @@ jobs:
       - name: Install LaTeX and latexdiff
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq latexmk latexdiff texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-science texlive-bibtex-extra
+          sudo apt-get install -y -qq latexmk latexdiff texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-science texlive-bibtex-extra texlive-fonts-extra
+      - name: Check Times mathematics packages
+        run: test -f "$(kpsewhich newtxtext.sty)" && test -f "$(kpsewhich newtxmath.sty)"
       - name: Generate second-round diff
         run: |
           set -euo pipefail

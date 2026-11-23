@@ -72,21 +72,21 @@ $\tau,\boldsymbol\tau_w$ & taper ratio and wall-shear vector (Pa) \\
 \setcounter{table}{0}
 
 \section{Introduction}\label{sec:intro}
-A deflected trailing-edge control changes lift and where that load acts. Pitching moment can therefore change abruptly while total lift still grows below stall. Explaining this behavior requires resolving the fixed and moving surface loads rather than examining integrated coefficients alone.
+A deflected trailing-edge control changes both lift and the location where that load acts. Consequently, the pitching moment can change abruptly even while total lift grows below stall. A local reduction in loading need not coincide with a reduction in integrated lift, because force contributions at different chordwise and spanwise positions combine. Explaining this behavior requires resolving fixed- and moving-surface loads rather than examining integrated coefficients alone.
 
-Plain-flap experiments by Sears and Liddell~\cite{sears1942plain} documented reduced effectiveness with separation at large deflections and differences between lift and hinge-moment responses. On finite rectangular wings with full-span flaps, Campbell et al.~\cite{campbell1956fullspan} related flap chord and aspect ratio to lift and center of pressure.
+Plain-flap experiments by Sears and Liddell~\cite{sears1942plain} documented reduced flap effectiveness associated with separation at large deflections. They also showed that similar lift changes can accompany different hinge-moment behavior. On finite rectangular wings with full-span flaps, Campbell et al.~\cite{campbell1956fullspan} related flap chord and aspect ratio to lift and center of pressure. Together these studies establish that flap separation and changes in load location are familiar phenomena, rather than the novelty claimed here.
 
 
 
-On swept wings, spanwise variations in local lift alter pitching moment before maximum lift~\cite{harper1964sweptstall}; both the force change and its moment arm matter.
+On swept wings, spanwise changes in local lift can produce pitching-moment nonlinearity before maximum lift~\cite{harper1964sweptstall}. The onset of local stall need not coincide with the change in integrated moment: the force change and its moment arm vary along the span. This motivates analyzing load redistribution instead of assigning a single global stall event.
 
-Swept-flap experiments reinforce this distinction. Tewes et al.~\cite{tewes2014sweepcontrol} observed different lift and moment responses with sweep despite separated flap flow; Melton~\cite{melton2014sweptflap} documented spanwise variation in separation on a swept wing with a 30\%-chord flap. These lower-Reynolds-number flow-control studies provide context, not validation, and do not resolve the fixed-surface and flap contributions.
+Swept-flap experiments reinforce this distinction. Tewes et al.~\cite{tewes2014sweepcontrol} found that large deflection could produce separated flap flow with continued lift growth, while sweep altered the associated lift and pitching-moment response. Melton~\cite{melton2014sweptflap} observed spanwise variation in separated flow on a swept wing with a 30\%-chord flap. These lower-Reynolds-number experiments primarily investigated active separation control and cannot validate the present configurations quantitatively. They establish context for the three-dimensional response but do not resolve the fixed- and control-surface contributions.
 
-Nonlinear lifting-line and vortex-lattice methods can incorporate viscous sectional information to represent finite-wing response~\cite{sivells1947liftingline,goitia2019vlm}. Predictions depend on their sectional data and three-dimensional corrections.
+Reduced-order methods provide another perspective: Sivells and Neely~\cite{sivells1947liftingline} incorporated nonlinear sectional lift and moment data into lifting-line analysis, while Goitia and Llamas~\cite{goitia2019vlm} combined viscous sectional data with vortex-lattice and finite-wing corrections. Such approaches can capture some nonlinear responses, but depend on the supplied sectional representation and corrections. They do not directly expose the pressure and moment-arm redistribution studied here.
 
-The MONNALISA database paper~\cite{rausa2026monnalisa} documented the pre-stall lift nonlinearity, reverse flow on the control and associated pressure changes. Its DUST computations~\cite{tugnoli2021dust} used nonlinear sectional data, while potential-based predictions were smoother. These observations motivate the present load-resolved analysis.
+The MONNALISA database publication~\cite{rausa2026monnalisa} already documents the baseline pre-stall lift nonlinearity, expansion of reverse flow on the control, associated pressure changes, and continued growth of total lift. Its DUST computations~\cite{tugnoli2021dust} used nonlinear sectional data, while the potential-based calculations were smoother. The present study builds on those observations but addresses a different question: how the loads on the fixed surface and control combine into lift and pitching-moment changes.
 
-The unresolved question is how fixed and control loads combine to change lift growth and pitching moment, and where those changes occur. We compare actual coefficient increments against preceding-incidence trends, integrate the forces by chord and span, and assess the numerical coefficients against experiments. Dihedral and sweep comparisons then test how computed loading changes with geometry.
+An actual increase of fixed-surface lift does not establish that its growth follows the preceding incidence trend; similarly, a control lift loss alone does not establish its contribution to pitching moment. We compare actual increments with those extrapolated from preceding incidence, integrate pressure loads by chord and span, and connect them to skin friction. Integrated WT--RANS comparisons first delimit the interpretation of computed surface loads. The two dihedral orientations and the opposite-sweep planform then reveal how load magnitudes and moment arms influence the response.
 
 The models are isolated tailplane-inspired wings with full-span, 30\%-chord plain controls, without fuselage or wing wake. The results do not establish behavior for partial-span controls or untested geometries.
 
@@ -95,7 +95,7 @@ The models are isolated tailplane-inspired wings with full-span, 30\%-chord plai
 \subsection{Models and wind-tunnel setup}\label{sec:setup}
 Wind-tunnel (WT) measurements provide integrated lift and moment; RANS surface loads resolve their component contributions. Configuration I is aft swept, with $\Gamma=0\degc$ and $45\degc$; configuration II is forward swept and has a different overall planform.
 
-Both wings have a symmetric 9\%-thick section, geometric semispan $b=1.6$~m and a full-span control hinged at 70\% chord. Coefficients use the reference semiplanform area $S$ and mean aerodynamic chord $\bar c$, independent of dihedral. Table~\ref{tab:geometry} lists the geometry, including quarter-chord sweep $\lambda=+30\degc$ for I and $-15\degc$ for II. Differences in taper, aspect ratio, area and chord preclude a sweep-only interpretation.
+Both wings use a constant symmetric section with thickness ratio $t/c=9\%$, geometric semispan $b=1.6$~m, and a full-span plain control hinged at 70\% chord. Coefficients use the reference semiplanform area $S$ and mean aerodynamic chord $\bar c$, independent of dihedral rotation. Table~\ref{tab:geometry} lists the geometry: quarter-chord sweep $\lambda=+30\degc$ for configuration I and $-15\degc$ for II. Positive $\Gamma$ raises the tip; aspect ratio for the full wing is $\Lambda=2b^2/S$. Configuration II also differs in taper, aspect ratio, area, and chord, so the response cannot be attributed to sweep alone.
 
 \begin{table}[htbp]\centering
 \caption{Model geometry and coefficient reference quantities.}\label{tab:geometry}
@@ -120,11 +120,11 @@ Numerical $x_A$ (m) & 0.642000 & 0.643532 & $-0.003618$ \\\bottomrule
 \caption{Wind-tunnel installation and geometry: (a) mounted semispan model; (b) reference and forward-swept planforms; (c) zero- and positive-dihedral arrangements.}\label{fig:setup}
 \end{figure}
 
-Measurements were obtained in the Galleria del Vento del Politecnico di Milano, a closed-circuit tunnel with a 4.00-m-wide, 6.00-m-long section. A raised false floor reduced its height from 3.84 to 3.49~m. The 1.6-m semispan is 40\% of tunnel width. An upstream gap beneath the floor diverted the incoming boundary layer, although a new layer developed over the raised floor; numerical root symmetry omits this layer and the support. Figure~\ref{fig:setup} shows the model mounting at $\alpha=25\degc$, $\delta=20\degc$.
+Measurements were obtained in the Galleria del Vento del Politecnico di Milano, a closed-circuit tunnel with a 4.00-m-wide, 6.00-m-long test section. A raised false floor reduced its height from 3.84 to 3.49~m; the model's geometric semispan is 40\% of the tunnel width. An upstream inlet and gap beneath the floor were designed to divert the incoming floor boundary layer. A new boundary layer developed over the raised floor and around the support, neither of which is represented by the numerical root symmetry condition. Figure~\ref{fig:setup} shows the installation at $\alpha=25\degc$, $\delta=20\degc$; this photograph documents the mounting rather than the pre-stall flow.
 
-The reported freestream turbulence was below 0.1\%; total-pressure variation outside wall layers was within $\pm0.5\%$ of dynamic pressure over most of the section, and the static-pressure gradient was $\partial C_P/\partial x=-0.004$~m$^{-1}$~\cite{rausa2026monnalisa}. A RUAG 767 strain-gauge balance and HBM QuantumX system supplied the loads. The operating point was $M_\infty=0.147$, $T_\infty=300$~K, $Re_b=5.5\times10^6$; Table~\ref{tab:geometry} gives the mean-chord Reynolds numbers.
+The database~\cite{rausa2026monnalisa} reports freestream turbulence below 0.1\% and total-pressure variation outside the wall layers within $\pm0.5\%$ of dynamic pressure over most of the section ($\pm1\%$ overall), with a longitudinal static-pressure gradient $\partial C_P/\partial x=-0.004$~m$^{-1}$. A RUAG 767 strain-gauge balance and HBM QuantumX system supplied the forces and moments. The nominal operating point was $M_\infty=0.147$, $T_\infty=300$~K, and span-based $Re_b=5.5\times10^6$. Table~\ref{tab:geometry} reports chord-based Reynolds numbers, obtained from $Re_{\bar c}=Re_b\bar c/b$.
 
-\label{anchor:wt_uncertainty}Local pre-stall incidence spacing was $2\degc$, with control deflections of $0,10,20,30\degc$. Experimental uncertainties were propagated through the measurement and reduction chain, including balance and coordinate transformations. These supplied uncertainties, not repeat-run scatter, underpin the sensitivity analysis.
+\label{anchor:wt_uncertainty}Measured incidence extended from approximately $-25\degc$ to $25\degc$, with $2\degc$ spacing around the pre-stall changes and control deflections $\delta=0,10,20,30\degc$. The experimental bars are supplied propagated uncertainty magnitudes, including the strain-gauge balance and balance-to-wind transformation, not statistical scatter from repeat runs. Moment uncertainties correspond to moments about the fitted aerodynamic centers. These magnitudes also underpin the departure sensitivity analysis in Sec.~\ref{sec:analysis}.
 
 \label{end:sec:setup}
 \subsection{Conventions and moment references}\label{sec:references}
@@ -137,7 +137,7 @@ Positive incidence raises the leading edge, positive control deflection moves th
 \end{equation}
 Pitching moment is normalized by $q_\infty S\bar c$. Body coordinates are expressed relative to the root leading edge.
 
-\label{anchor:fitted_reference}Experimental and numerical aerodynamic centers are fitted separately from zero-deflection moment and normal-force trends for $|\alpha|\leq10\degc$ and fixed for all control deflections~\cite{rausa2026monnalisa}. Their WT/RANS positions differ by about 1 and 2~mm for configuration I at zero and $45\degc$ dihedral, but by 45.6~mm for II. Moment comparisons therefore identify their references, rather than assuming quarter-MAC.
+\label{anchor:fitted_reference}Experimental and numerical aerodynamic centers are fitted separately from zero-deflection moment and body-normal-force trends over $|\alpha|\leq10\degc$ and then fixed as control deflection changes~\cite{rausa2026monnalisa}. For configuration I, WT/RANS positions are $0.6430/0.6420$~m at zero dihedral and $0.6455/0.6435$~m at $45\degc$, differences of about 1 and 2~mm. For II, the positions are $-0.0492/-0.00362$~m, differing by 45.6~mm. Thus matching the reference construction does not impose identical moment axes on WT and RANS; the common-axis dihedral diagnostic below explicitly uses one physical reference.
 
 The original numerical reference is $O=(0.228571,0,0)$~m, the root quarter-chord of Geom.~I. For a numerical pole transported from abscissa $x_0$ to $x_1$,
 \begin{equation}
@@ -152,7 +152,7 @@ SU2~\cite{palacios2013stanford} solves compressible ideal-gas RANS with Sutherla
 
 \label{anchor:wall_model}The wing has no-slip, adiabatic walls, freestream far-field and root symmetry boundaries. Steady pseudo-time iteration uses implicit Euler, FGMRES and adaptive CFL. The lift/drag Cauchy stopping tolerance is approximately $3\times10^{-6}$ over 100 entries.
 
-Hex-dominant octree meshes~\cite{rausa2026monnalisa} refine the leading edge, hinge, trailing edge and wake. Boundary-layer cells have nominal first height $2\times10^{-6}$~m and growth ratio 1.15; median $y^+$ is 0.19--0.26, with maxima of 1.1--1.3.
+Hex-dominant, octree-based meshes~\cite{rausa2026monnalisa} resolve the leading edge, hinge junction, trailing edge, and incidence-dependent wake. Boundary-layer extrusion has nominal first-cell height $2\times10^{-6}$~m and growth ratio 1.15. Representative median wall distance is $y^+=0.19$--0.26, with maxima 1.1--1.3.
 
 A four-level grid study on configuration I used $\delta=35\degc$, $\Gamma=0,45\degc$ and $\alpha=0,18\degc$ (Table~\ref{tab:mesh}, Fig.~\ref{fig:mesh}). Nominal meshes had 9.7--12.7 million points versus 50.1--65.9 million on the finest level. Moments in Fig.~\ref{fig:mesh} use the original numerical pole.
 
@@ -173,7 +173,7 @@ Very fine & 50.11--65.89 & 87.35--109.98 \\
 
 \label{end:sec:numerics}
 \subsection{Load decomposition and trend departures}\label{sec:analysis}
-An actual coefficient increment is the change over an incidence interval; its departure is the difference from an extrapolated preceding fitted slope. At $\delta=20\degc$, $\alpha=0\to2\degc$, fixed-surface lift increases by $0.0593$ rather than the expected $0.1285$: the departure is $-0.0692$. Its lift still rises, but less than predicted.
+An actual coefficient increment is its change over a sampled incidence interval. Its departure subtracts the increment predicted by continuing an empirically fitted preceding slope over the same interval. At $\delta=20\degc$, $\alpha=0\to2\degc$, for example, fixed-surface lift increases by $+0.0593$ rather than the predicted $+0.1285$: its departure is $-0.0692$. A negative departure therefore means reduced growth relative to the chosen reference, not necessarily an actual loss of lift.
 
 We integrate pressure and viscous loads over fixed, control and tip surfaces using consistent reference quantities. The control includes the hinge junction and blunt trailing edge; tip loads remain in total coefficients.
 
@@ -183,7 +183,7 @@ For lift or moment coefficient $Q$, the actual increment and departure of compon
  D_{Q,j}=\Delta C_{Q,j}-m_{Q,j}^{\mathrm{pre}}(\alpha_b-\alpha_a).
 \label{eq:departure}
 \end{equation}
-Each preceding slope is an unweighted least-squares fit using identical samples for all components, preserving additivity. The primary $\delta=20\degc$ baseline is $\alpha=\{-6,-4,-2\}\degc$; the early $\delta=30\degc$ baseline is $\{-16,-14,-12\}\degc$. These are empirical references, not necessarily attached-flow states. Neighboring fits test sensitivity.
+Each preceding slope is an unweighted least-squares fit using identical incidence samples for all load components, preserving additivity. For $\delta=20\degc$ the primary preceding range is $\alpha\in\{-6,-4,-2\}\degc$; for the early $\delta=30\degc$ feature it is $\{-16,-14,-12\}\degc$. These empirical slopes are not assumed to represent attached flow. Neighboring fitting windows quantify reference sensitivity, while finite differences remain meaningful when the preceding trend is curved.
 
 Propagating the supplied measured-coefficient uncertainties through $D=\sum_i w_i C_i$ gives
 \begin{equation}
@@ -193,7 +193,7 @@ Propagating the supplied measured-coefficient uncertainties through $D=\sum_i w_
 \end{equation}
 The first assumes independent errors; the second gives an absolute-weight bound. Unknown inter-incidence covariance and coverage prevent interpreting either as a confidence interval.
 
-Pressure and wall-shear forces and moments are integrated by chord and span. The pitching moment about abscissa $x_A$ is
+Pressure and wall-shear forces are integrated on the triangulated surface over chordwise and spanwise regions. The pressure coefficient is $C_p=(p-p_\infty)/q_\infty$ and wall-shear coefficient $\mathbf C_f=\boldsymbol\tau_w/q_\infty$. The moment about reference abscissa $x_A$ is
 \begin{equation}
  C_M(x_A)=\frac{1}{q_\infty S\bar c}
  \int\big[z\,dF_x-(x-x_A)dF_z\big].
@@ -201,14 +201,14 @@ Pressure and wall-shear forces and moments are integrated by chord and span. The
 \end{equation}
 The terms $z\,dF_x$ and $-(x-x_A)dF_z$ are retained separately for common-axis dihedral comparisons. Integrated force and moment reconstructions close against solver totals.
 
-Chordwise regions are forward ($\xi<0.4$), intermediate ($0.4\leq\xi<0.7$) and aft ($\xi\geq0.7$), with $\xi$ the straightened local chord fraction. The aft region is further divided into spanwise thirds, using $\eta=s/b$ (Fig.~\ref{fig:regions}). Surface integrations include both physical sides, with end faces in totals. Pressure cuts at $\eta=0.2,0.5,0.8$ are not smoothed across discontinuities.
+Chordwise regions are forward ($\xi<0.4$), intermediate ($0.4\leq\xi<0.7$), and aft ($\xi\geq0.7$), with $\xi$ the local chord fraction after straightening the control about its hinge. The aft region is further divided into spanwise thirds, using $\eta=s/b$ (Fig.~\ref{fig:regions}). Integrals cover both physical sides, with hinge junction and end-face loads included in the appropriate totals. Pressure cuts at $\eta=0.2,0.5,0.8$ follow the actual surface intersections without smoothing or bridging gaps; the reported regional coefficients are integrated loads, not densities.
 
 \begin{figure}[htbp]\centering\includegraphics[width=.72\textwidth]{figures_revision_load_regions.pdf}
 \caption{Reference planform: chordwise integration regions, spanwise thirds, hinge, and pressure-section locations.}\label{fig:regions}\end{figure}
 
-\label{anchor:reversal_definition}The local chordwise skin-friction coefficient is $C_{f,c}=\mathbf C_f\cdot\mathbf t_c$, where $\mathbf t_c$ is the normalized surface-plane projection of the local downstream chord direction, accounting for dihedral and control rotation.
+\label{anchor:reversal_definition}For each surface face, a downstream local chord direction $\mathbf d_c$ is rotated with the control, then projected into the surface tangent plane as $\mathbf t_c=[\mathbf d_c-(\mathbf d_c\cdot\mathbf n)\mathbf n]/\|\mathbf d_c-(\mathbf d_c\cdot\mathbf n)\mathbf n\|$. Thus $C_{f,c}=\mathbf C_f\cdot\mathbf t_c$ measures the chordwise component of wall shear in the local, dihedral- and flap-aware orientation. End faces are excluded from this shear diagnostic.
 
-The fraction $f_{\mathrm{rev}}$ counts upper-control area with $C_{f,c}<0$, indicating upstream-directed near-wall shear. It is not a complete three-dimensional separation footprint~\cite{tobak1982topology,mccormack1949sweptforward}.
+The fraction $f_{\mathrm{rev}}$ is the upper-control area fraction ($\xi>0.7$, excluding end faces) with $C_{f,c}<0$. A value of 0.5 means that upstream-directed chordwise shear occupies half the control's upper surface. It indicates near-wall reversal, not a complete three-dimensional separation footprint~\cite{tobak1982topology,mccormack1949sweptforward}.
 
 \label{end:sec:analysis}
 \label{end:sec:methods}

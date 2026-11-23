@@ -22,7 +22,7 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 ## Reviewer 1 — Abstract specificity
 
-**Response:** We have rewritten the Abstract to state the principal physical findings directly, without relying on undefined symbols, exact incidence intervals or an inventory of numerical values. It now explains that the fixed surface continues gaining lift while accounting for roughly two-thirds of the shortfall relative to the preceding lift-growth trend; the control contributes more strongly to the pitching-moment departure. It also specifies the incidence-dependent dihedral effect and the inboard-concentrated aft-loading changes of the forward-swept planform, while acknowledging the limits of numerical–experimental agreement. The detailed quantitative evidence remains in the Results.
+**Response:** We have rewritten the Abstract to state the principal physical findings directly, without relying on undefined symbols, exact incidence intervals or an inventory of numerical values. It now explains that the fixed surface continues gaining lift while accounting for about two-thirds of the **total** lift-growth shortfall relative to the preceding incidence trend; the control contributes more strongly to the pitching-moment departure. It also specifies the incidence-dependent dihedral effect and the inboard-concentrated aft-loading changes of the forward-swept planform, and keeps the central evidence in plain scientific language. The detailed numerical comparisons and their accuracy context remain in the Results.
 
 ## Reviewer 1 — Wordiness and grid selection
 
@@ -35,6 +35,12 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 ## Reviewer 1 — Length and full-article focus
 
 **Response:** We appreciate the reviewer's repeated concern. We have materially shortened and focused the paper while preserving the linked evidence that makes it an archival research contribution: the different surface contributions to lift-growth shortfall and pitching moment, the spatial moment-arm explanation, and the different incidence-dependent load distributions with dihedral and sweep. The revision removes repeated narration rather than the analyses needed to substantiate these conclusions. We therefore respectfully retain the full-article format.
+
+## Scientific consistency of the final manuscript
+
+The updated planform discussion compares numerical and experimental pitching-moment increments about a common pole. The computed increment is approximately +0.0168 about its own fitted aerodynamic center and +0.0099 after transport to the experimental center, using the archived body-normal-force increment; the experimental increment is approximately +0.019. Both remain positive, while the quantitative comparison is now reference-consistent. The surface-load analysis, source data, and conclusions about load redistribution are unchanged.
+
+The revision also avoids implying that lifting-line and vortex-lattice approaches cannot predict spanwise loading or moment arms. The dihedral discussion continues to emphasize its measured and computed force/moment contributions, with force projection used only as supporting context.
 
 ## Production checks
 

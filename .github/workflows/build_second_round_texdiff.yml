@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - '.github/workflows/build_second_round_texdiff.yml'
+      - 'main.tex'
   workflow_dispatch:
 permissions:
   contents: write

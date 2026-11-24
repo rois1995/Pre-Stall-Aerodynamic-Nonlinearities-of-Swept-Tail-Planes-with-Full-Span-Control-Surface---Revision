@@ -34,7 +34,7 @@ plt.rcParams.update({
     "lines.linewidth": 1.1,
 })
 fig, axes = plt.subplots(1, 2, figsize=(6.6, 3.35))
-fig.subplots_adjust(left=.09, right=.986, bottom=.263, top=.885, wspace=.27)
+fig.subplots_adjust(left=.14, right=.986, bottom=.263, top=.885, wspace=.46)
 colors = ["#0072B2", "#D55E00", "#009E73", "#8B55A3"]
 markers = ["o", "s", "^", "D"]
 for ax, group in zip(axes, ["a", "b"]):

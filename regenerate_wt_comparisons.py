@@ -29,21 +29,23 @@ def series(panel,key):
     assert len(z)>0,(panel,key)
     return z
 
-def curve(ax,panel,key,color,d,wt=False):
+def wt_curve(ax,panel,key,color,d):
     z=series(panel,key)
-    if wt:
-        assert z.error.notna().all(),(panel,key)
-        ax.plot(z.x,z.y,color=color,lw=1.0,zorder=2)
-        ax.errorbar(z.x,z.y,yerr=z.error,fmt=MS[d],color=color,
-           markersize=2.25,markeredgewidth=.35,elinewidth=1.05,
-           capthick=1.0,capsize=2.5,linestyle="none",zorder=6)
-    else:
-        ax.plot(z.x,z.y,color=color,marker=MS[d],markersize=3.0,
-           markerfacecolor="white",linestyle="--",linewidth=1.,zorder=3)
+    assert z.error.notna().all(),(panel,key)
+    ax.plot(z.x,z.y,color=color,lw=1.0,zorder=2)
+    ax.errorbar(z.x,z.y,yerr=z.error,fmt=MS[d],color=color,
+       markersize=2.25,markeredgewidth=.35,elinewidth=1.05,
+       capthick=1.0,capsize=2.5,linestyle="none",zorder=6)
 
 def rans(ax,panel,d,color):
-    for key in df[df.panel==panel].series.unique():
-        if key.startswith("RANS_"+str(d)+"_"):curve(ax,panel,key,color,d)
+    direct = f"RANS_{d}_direct"
+    reflected = f"RANS_{d}_reflected"
+    points = df[(df.panel == panel) & (
+        (df.series == direct) | ((df.series == reflected) & (df.x != 0))
+    )].sort_values("x")
+    assert points.x.is_unique and (points.x == 0).sum() == 1, (panel, d)
+    ax.plot(points.x, points.y, color=color, marker=MS[d], markersize=3.0,
+            markerfacecolor="white", linestyle="--", linewidth=1., zorder=3)
 
 def axis(ax,quantity,title=None):
     ax.set(xlim=(-18.5,8.5),xticks=[-15,-10,-5,0,5],xlabel=r"$\alpha$ (deg)")
@@ -71,11 +73,11 @@ def save(fig,name):
     plt.close(fig)
 
 fig,axes=plt.subplots(1,2,figsize=(6.6,3.5))
-fig.subplots_adjust(left=.10,right=.985,top=.85,bottom=.265,wspace=.30)
+fig.subplots_adjust(left=.14,right=.985,top=.85,bottom=.265,wspace=.46)
 for ax,p,q,title in zip(axes,"ab",["CL","CM"],["(a) Lift","(b) Pitching moment"]):
     axis(ax,q,title)
     for d,c in [(20,BLUE),(30,ORANGE)]:
-        rans(ax,p,d,c);curve(ax,p,"WT_"+str(d),c,d,wt=True)
+        rans(ax,p,d,c);wt_curve(ax,p,"WT_"+str(d),c,d)
     mark(ax,-2,0);mark(ax,-12,-8,hatch=True)
 legend(fig,[(rf"WT, $\delta={d}^\circ$",c,d,False) for d,c in [(20,BLUE),(30,ORANGE)]]+
            [(rf"RANS, $\delta={d}^\circ$",c,d,True) for d,c in [(20,BLUE),(30,ORANGE)]],fs=8.9)
@@ -91,10 +93,10 @@ for geometry,panels,color,out in [
         p="ab"[j];other=panels[j]
         axis(top,q);axis(bot,q)
         for d in [20,30]:
-            curve(top,p,"WT_"+str(d),BLUE,d,wt=True)
-            curve(top,other,"WT_"+str(d),color,d,wt=True)
+            wt_curve(top,p,"WT_"+str(d),BLUE,d)
+            wt_curve(top,other,"WT_"+str(d),color,d)
             col=BLUE if d==20 else ORANGE
-            rans(bot,other,d,col);curve(bot,other,"WT_"+str(d),col,d,wt=True)
+            rans(bot,other,d,col);wt_curve(bot,other,"WT_"+str(d),col,d)
         for target in [top,bot]:
             if geometry=="Dihedral":
                 # Table 5 assesses the same lift interval at both deflections.

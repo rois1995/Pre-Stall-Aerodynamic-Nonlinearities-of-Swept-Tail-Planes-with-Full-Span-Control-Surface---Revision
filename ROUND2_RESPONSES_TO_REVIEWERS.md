@@ -8,9 +8,7 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 **Comment:** Lift error bars are not apparent in Fig. 4 and other experimental curves. Were these errors omitted or are they much smaller than the moment uncertainties?
 
-**Response:** Thank you for identifying an ambiguity in the figure presentation. The supplied lift uncertainties are nonzero and vary with incidence and control deflection. For the reference model at a 20° control deflection, the propagated lift-coefficient uncertainty magnitude at zero incidence is approximately 0.0133. At the scale of the complete polar, some uncertainty bars were difficult to distinguish from the symbols. We regenerated Fig. 4 with smaller symbols and clearer error-bar caps, and regenerated the WT comparisons in Figs. 5, 11 and 15 using their archived plotted-data records; both $C_L$ and $C_M$ carry their original pointwise propagated uncertainty magnitudes. All four plots use the manuscript's DejaVu Serif/STIX figure style. No uncertainty magnitude has been changed or rescaled. The caption now identifies the error bars, and the Methods continue to distinguish the original propagated uncertainties from repeat-run scatter and from the separate uncertainty-sensitivity analysis.
-
-**Verification:** The regenerated figures preserve the frozen experimental and computed coefficients and original propagated WT uncertainties. The three comparison figures were built successfully in GitHub and visually inspected from the same plotting code. Their small error bars remain physically small at full-polar scale; the Fig. 4 caption also reports a representative $u(C_L)$. 
+**Response:** Thank you for identifying an ambiguity in the figure presentation. The supplied lift uncertainties are nonzero and vary with incidence and control deflection. For the reference model at a 20° control deflection, the propagated lift-coefficient uncertainty magnitude at zero incidence is approximately 0.0133. At the scale of the complete polar, some uncertainty bars were difficult to distinguish from the symbols. We regenerated Fig. 4 with smaller symbols and clearer error-bar caps, and regenerated the WT comparisons in Figs. 5, 11 and 15 using their archived plotted-data records; both $C_L$ and $C_M$ carry their original pointwise propagated uncertainty magnitudes. All four plots use the manuscript's DejaVu Serif/STIX figure style. No uncertainty magnitude has been changed or rescaled. The caption now identifies the error bars, and the Methods describe how the pointwise uncertainties were propagated and how they enter the separate analysis of trend departures.
 
 ## Reviewer 1 — Meaning of “63% of the total lift departure”
 
@@ -18,15 +16,15 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 ## Reviewer 1 — “Undeformed” terminology
 
-**Response:** We have replaced the confusing wording with *geometric semispan*, *reference semiplanform area*, *spanwise coordinate* and *reference planform*, as appropriate. *Undeflected* is reserved for describing the control in its neutral position. The reference area used in the coefficient normalization remains unchanged when the wing is rotated to the positive-dihedral configuration.
+**Response:** We have replaced the confusing wording with *geometric semispan*, *reference semiplanform area*, *spanwise coordinate* and *reference planform*, as appropriate. We use *zero control deflection* for the neutral position. The reference area used in the coefficient normalization remains unchanged when the wing is rotated to the positive-dihedral configuration.
 
 ## Reviewer 1 — Abstract specificity
 
-**Response:** We have rewritten the Abstract to state the principal physical findings directly, without relying on undefined symbols, exact incidence intervals or an inventory of numerical values. It now explains that the fixed surface continues gaining lift while accounting for most of the shortfall in total lift growth relative to the preceding trend. The control contributes most of the pitching-moment departure about the computed aerodynamic center. It also specifies the incidence-dependent dihedral effect and the inboard-concentrated aft-loading changes of the forward-swept planform, and keeps the central evidence in plain scientific language. The detailed numerical comparisons and their accuracy context remain in the Results.
+**Response:** We have rewritten the Abstract to state the principal physical findings directly, without relying on undefined symbols, exact incidence intervals or an inventory of numerical values. It now explains that the fixed surface continues gaining lift while accounting for most of the shortfall in total lift growth relative to the preceding trend. The control contributes most of the pitching-moment departure in the reference load breakdown. The abstract describes the recovery in lift growth even as reverse flow spreads over the control and identifies dihedral and sweep as variables studied. The detailed numerical comparisons and their accuracy context remain in the Results.
 
 ## Reviewer 1 — Wordiness and grid selection
 
-**Response:** We agree and have condensed the article as an integrated argument. The Introduction now synthesizes the relevant literature more directly, the Methods retain reproducibility-critical details without repeating definitions, and the Conclusions are substantially shorter. The cited nominal-grid sentence now reports actual grid sizes, nominal-to-finest coefficient differences and the computational tradeoff rather than referring vaguely to the demands of the campaign. Using the same TeXcount text-word category for both manuscript sources, the count fell from 7,594 to 4,950, a reduction of about 35%.
+**Response:** We agree and have condensed the article as an integrated argument. The Introduction now synthesizes the relevant literature more directly, the Methods retain reproducibility-critical details without repeating definitions, and the Conclusions are substantially shorter. The cited nominal-grid sentence now reports actual grid sizes, nominal-to-finest coefficient differences and the computational tradeoff rather than referring vaguely to the demands of the campaign. Using the same TeXcount text-word category for both manuscript sources, the count fell from 7,594 to 5,166, a reduction of about 32%.
 
 ## Reviewer 1 — Nomenclature repetition
 
@@ -40,11 +38,4 @@ We thank the reviewers for their re-evaluation. The second revision makes the pr
 
 The updated planform discussion compares numerical and experimental pitching-moment increments about a common pole. The computed increment is approximately +0.0168 about its own fitted aerodynamic center and +0.0099 after transport to the experimental center, using the archived body-normal-force increment; the experimental increment is approximately +0.019. Both remain positive, while the quantitative comparison is now reference-consistent. The surface-load analysis, source data, and conclusions about load redistribution are unchanged.
 
-The revision also avoids implying that lifting-line and vortex-lattice approaches cannot predict spanwise loading or moment arms. The dihedral discussion continues to emphasize its measured and computed force/moment contributions, with force projection used only as supporting context.
-
-## Production checks
-
-- Final manuscript source, data-driven Fig. 4, and regenerated Figs. 5, 11 and 15 are committed to main.
-- The article-wide LaTeX diff against commit `32a95a48` is compiled and stored under `revision_materials/`.
-- The clean and marked manuscripts were compiled from the revised source and figures.
-- Separate Reviewer 1 and Reviewer 2 response PDFs use the previously established LaTeX response-letter structure; their section and figure references use the clean manuscript pagination.
+The dihedral discussion continues to emphasize its measured and computed force/moment contributions, with force projection used only as supporting context.
